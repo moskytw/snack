@@ -164,6 +164,8 @@ snack_refresh = 500
 
 snack_pos = [[10, 8], [10, 7], [10, 6]]
 
+bricks_pos = None
+
 def init():
     glClearColor(*rgbhex('#FFFFFF'))
     glShadeModel(GL_SMOOTH)
@@ -186,19 +188,24 @@ game_map = list(open('maps/game.txt'))
 
 def load_game():
 
-    y = HEIGHT
+    global bricks_pos
+
+    bricks_pos = set()
+    
+    unit_y = HEIGHT/UNIT
 
     for blocks in game_map:
 
-        x = 0
-        y -= UNIT
+        unit_x = 0
+        unit_y -= 1
 
         for block in blocks:
             if block == '+':
-                brick(x=x, y=y, size=UNIT)
+                brick(x=UNIT*unit_x, y=UNIT*unit_y, size=UNIT)
+                bricks_pos.add((unit_x, unit_y))
             elif block == 'G':
-                grass(x=x, y=y, size=UNIT)
-            x += UNIT
+                grass(x=UNIT*unit_x, y=UNIT*unit_y, size=UNIT)
+            unit_x += 1
 
 def unit_disk(x=0, y=0, size=0, angle=0):
     # put center of this disk to the center of an unit
