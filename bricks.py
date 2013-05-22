@@ -77,9 +77,9 @@ def brick(x=0, y=0, size=0, angle=0):
 
 # --- main ---
 
-WIDTH = 500
-HEIGHT = 500
-UNIT = 100
+UNIT   = 15
+WIDTH  = UNIT*48
+HEIGHT = UNIT*27
 
 def init():
     glClearColor(*rgbhex('#FFFFFF'))
