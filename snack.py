@@ -526,7 +526,9 @@ if __name__ == '__main__':
     glutInitWindowSize(WIDTH, HEIGHT)
     glutInitWindowPosition(100, 100)
     glutCreateWindow('Bricks')
+
     init()
+
     glutReshapeFunc(reshape)
     glutKeyboardFunc(keyboard)
     glutSpecialFunc(special)
