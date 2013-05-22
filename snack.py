@@ -206,6 +206,8 @@ fruits_pos = set([(5, 5)])
 
 is_game_over = False
 
+score = 0
+
 def init():
     glClearColor(*rgbhex('#FFFFFF'))
     glShadeModel(GL_SMOOTH)
@@ -369,6 +371,7 @@ def move_snack():
     global snack_pos
     global is_game_over
     global snack_refresh
+    global score
 
     if is_game_over:
         return
@@ -380,6 +383,7 @@ def move_snack():
 
     if fruits_pos and snack_pos and snack_pos[0] in fruits_pos:
         snack_refresh -= 50
+        score += 1
         fruits_pos.remove(snack_pos[0])
         fruits_pos.add(choice(spaces_pos))
 
