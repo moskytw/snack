@@ -118,7 +118,7 @@ HEIGHT = 500
 UNIT = 100
 
 def init():
-    glClearColor(0, 0, 0, 0)
+    glClearColor(*rgbhex('#FFFFFF'))
 
 def display():
     glClear(GL_COLOR_BUFFER_BIT)
