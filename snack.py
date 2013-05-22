@@ -319,6 +319,9 @@ def move_snack():
     global snack_pos
     global is_game_over
 
+    if is_game_over:
+        return
+
     if bricks_pos and snack_pos and tuple(snack_pos[0]) in bricks_pos:
         snack_pos = []
         is_game_over = True
