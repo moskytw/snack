@@ -61,6 +61,24 @@ def square(x=0, y=0, size=0, angle=0):
 
     glPopMatrix()
 
+def border(x=0, y=0, size=0, angle=0):
+
+    glPushMatrix()
+
+    glMatrixMode(GL_PROJECTION)
+    glTranslate(x, y, 0)
+    glRotate(angle, 0, 0, 1)
+    glScale(size, size, 1)
+
+    glBegin(GL_LINE_LOOP)
+    glVertex2f(0, 0)
+    glVertex2f(0, 1)
+    glVertex2f(1, 1)
+    glVertex2f(1, 0)
+    glEnd()
+
+    glPopMatrix()
+
 # --- main ---
 
 WIDTH = 500
@@ -83,6 +101,8 @@ def display():
 
     glColor(rgbhex('#FF0000'))
     square(x=UNIT, y=UNIT, size=UNIT, angle=30)
+    glColor(rgbhex('#FFFFFF'))
+    border(x=UNIT, y=UNIT, size=UNIT, angle=30)
 
     glFlush()
 
