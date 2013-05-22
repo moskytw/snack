@@ -405,6 +405,8 @@ def display():
         game_score = 0
         game_status = 'GAMING'
 
+        glutChangeToMenuEntry(1, 'continue', 1);
+
         glutPostRedisplay()
 
     elif game_status in ('GAMING', 'DYING', 'PAUSE'):
@@ -424,6 +426,8 @@ def display():
         for c in str(game_score):
             pos = render_number(int(c), unit_x_offset, unit_y_offset)
             unit_x_offset = pos[0]
+
+        glutChangeToMenuEntry(1, 'restart', 3);
 
     glutSwapBuffers()
 
@@ -524,10 +528,14 @@ def menu(idx):
 
     if idx == 1:
         game_status = 'GAMING'
+        glutPostRedisplay()
     elif idx == 2:
         sys.exit()
     elif idx == 3:
         game_status = 'INIT'
+        glutPostRedisplay()
+
+    return 0
 
 if __name__ == '__main__':
 
