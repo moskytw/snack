@@ -160,7 +160,7 @@ WIDTH  = UNIT*48
 HEIGHT = UNIT*27
 
 snack_face = 'TOP'
-snack_refresh = 500
+snack_refresh = 200
 
 snack_pos = [[10, 8], [10, 7], [10, 6]]
 
