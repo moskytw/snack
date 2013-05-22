@@ -38,8 +38,8 @@ def line(x=0, y=0, size=0, angle=0):
     glScale(size, 1, 1)
 
     glBegin(GL_LINES)
-    glVertex2f(0, 0)
-    glVertex2f(1, 0)
+    glVertex(0, 0)
+    glVertex(1, 0)
     glEnd()
 
     glPopMatrix()
@@ -57,20 +57,20 @@ def brick(x=0, y=0, size=0, angle=0):
     glColor(rgbhex('#B22222'))
 
     glBegin(GL_QUADS)
-    glVertex2f(0, 0)
-    glVertex2f(0, 1)
-    glVertex2f(1, 1)
+    glVertex(0, 0)
+    glVertex(0, 1)
+    glVertex(1, 1)
     glColor(rgbhex('#8B0000'))
-    glVertex2f(1, 0)
+    glVertex(1, 0)
     glEnd()
 
     glColor(rgbhex('#800000'))
 
     glBegin(GL_LINE_LOOP)
-    glVertex2f(0, 0)
-    glVertex2f(0, 1)
-    glVertex2f(1, 1)
-    glVertex2f(1, 0)
+    glVertex(0, 0)
+    glVertex(0, 1)
+    glVertex(1, 1)
+    glVertex(1, 0)
     glEnd()
 
     glPopMatrix()
@@ -89,22 +89,22 @@ def grass(x=0, y=0, size=0, angle=0):
     glBegin(GL_TRIANGLES)
 
     glColor(rgbhex('#008000'))
-    glVertex2f(0.0, 0.0)
-    glVertex2f(0.0, 1.0)
+    glVertex(0.0, 0.0)
+    glVertex(0.0, 1.0)
     glColor(rgbhex('#000000'))
-    glVertex2f(1.0, 0.0)
+    glVertex(1.0, 0.0)
 
     glColor(rgbhex('#008000'))
-    glVertex2f(0.5, 0.0)
-    glVertex2f(1.0, 1.0)
+    glVertex(0.5, 0.0)
+    glVertex(1.0, 1.0)
     glColor(rgbhex('#000000'))
-    glVertex2f(1.5, 0.0)
+    glVertex(1.5, 0.0)
 
     glColor(rgbhex('#008000'))
-    glVertex2f(1.0, 0.0)
-    glVertex2f(2.0, 1.0)
+    glVertex(1.0, 0.0)
+    glVertex(2.0, 1.0)
     glColor(rgbhex('#000000'))
-    glVertex2f(2.0, 0.0)
+    glVertex(2.0, 0.0)
 
     glEnd()
 

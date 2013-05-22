@@ -38,8 +38,8 @@ def line(x=0, y=0, size=0, angle=0):
     glScale(size, 1, 1)
 
     glBegin(GL_LINES)
-    glVertex2f(0, 0)
-    glVertex2f(1, 0)
+    glVertex(0, 0)
+    glVertex(1, 0)
     glEnd()
 
     glPopMatrix()
@@ -57,19 +57,19 @@ def brick(x=0, y=0, size=0, angle=0):
     glColor(rgbhex('#B22222'))
 
     glBegin(GL_QUADS)
-    glVertex2f(0, 0)
-    glVertex2f(0, 1)
-    glVertex2f(1, 1)
-    glVertex2f(1, 0)
+    glVertex(0, 0)
+    glVertex(0, 1)
+    glVertex(1, 1)
+    glVertex(1, 0)
     glEnd()
 
     glColor(rgbhex('#800000'))
 
     glBegin(GL_LINE_LOOP)
-    glVertex2f(0, 0)
-    glVertex2f(0, 1)
-    glVertex2f(1, 1)
-    glVertex2f(1, 0)
+    glVertex(0, 0)
+    glVertex(0, 1)
+    glVertex(1, 1)
+    glVertex(1, 0)
     glEnd()
 
     glPopMatrix()

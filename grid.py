@@ -26,8 +26,8 @@ def line(x=0, y=0, size=0, angle=0):
     glScale(size, 1, 1)
 
     glBegin(GL_LINES)
-    glVertex2f(0, 0)
-    glVertex2f(1, 0)
+    glVertex(0, 0)
+    glVertex(1, 0)
     glEnd()
 
     glPopMatrix()

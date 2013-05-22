@@ -17,10 +17,10 @@ def init():
 
 def render_box():
     glBegin(GL_QUADS)
-    glVertex2f(0, 0) # bottom left
-    glVertex2f(1, 0) # bottom right
-    glVertex2f(1, 1) # top right
-    glVertex2f(0, 1) # top left
+    glVertex(0, 0) # bottom left
+    glVertex(1, 0) # bottom right
+    glVertex(1, 1) # top right
+    glVertex(0, 1) # top left
     glEnd()
 
 def display():
