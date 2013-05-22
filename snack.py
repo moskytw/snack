@@ -164,17 +164,17 @@ def fruit(x=0, y=0, size=0, angle=0):
     glRotate(angle, 0, 0, 1)
     glScale(size, size, 1)
 
-    glColor(rgbhex('#DC143C'))
+    glColor(rgbhex('#FFFF00'))
 
     glBegin(GL_QUADS)
     glVertex(0, 0)
     glVertex(0, 1)
     glVertex(1, 1)
-    glColor(rgbhex('#8B0000'))
+    glColor(rgbhex('#FFD700'))
     glVertex(1, 0)
     glEnd()
 
-    glColor(rgbhex('#800000'))
+    glColor(rgbhex('#DAA520'))
 
     glBegin(GL_LINE_LOOP)
     glVertex(0, 0)
