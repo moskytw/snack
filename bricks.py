@@ -84,6 +84,20 @@ HEIGHT = UNIT*27
 def init():
     glClearColor(*rgbhex('#FFFFFF'))
 
+def render_grid():
+
+    origin_color = glGetFloatv(GL_CURRENT_COLOR)
+
+    glColor(rgbhex('#00FF00'))
+
+    for x in range(0, WIDTH, UNIT):
+        line(x=x, size=HEIGHT, angle=90)
+
+    for y in range(0, HEIGHT, UNIT):
+        line(y=y, size=WIDTH)
+
+    glColor(*origin_color)
+
 def load_game():
 
     y = HEIGHT
@@ -102,16 +116,9 @@ def display():
 
     glClear(GL_COLOR_BUFFER_BIT)
 
-    glColor(rgbhex('#00FF00'))
-
-    for x in range(0, WIDTH, UNIT):
-        line(x=x, size=HEIGHT, angle=90)
-
-    for y in range(0, HEIGHT, UNIT):
-        line(y=y, size=WIDTH)
-
     brick(x=UNIT, y=UNIT, size=UNIT, angle=30)
 
+    render_grid()
     load_game()
 
     glFlush()
