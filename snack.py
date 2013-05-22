@@ -461,46 +461,23 @@ def special(key, x, y):
 def move_snack():
 
     global snack_pos
-    global game_status
-    global snack_refresh
-    global game_score
 
-    if game_status == 'GAMEOVER':
-        return
+    if not snack_pos: return
 
-    if bricks_pos and snack_pos and snack_pos[0] in bricks_pos:
-        snack_pos = []
-        game_status = 'GAMEOVER'
-        glutChangeToMenuEntry(1, 'restart', 3);
+    snack_pos.pop(-1)
 
-    if fruits_pos and snack_pos and snack_pos[0] in fruits_pos:
-        snack_refresh -= 50
-        game_score += 1
-        fruits_pos.remove(snack_pos[0])
-        fruits_pos.add(choice(spaces_pos))
+    new_head_pos = list(snack_pos[0])
+    if snack_face == 'TOP':
+        new_head_pos[1] += 1
+    elif snack_face == 'BOTTOM':
+        new_head_pos[1] -= 1
+    elif snack_face == 'LEFT':
+        new_head_pos[0] -= 1
+    elif snack_face == 'RIGHT':
+        new_head_pos[0] += 1
+    new_head_pos = tuple(new_head_pos)
 
-    if snack_pos:
-
-        snack_pos.pop(-1)
-
-        new_head_pos = list(snack_pos[0])
-        if snack_face == 'TOP':
-            new_head_pos[1] += 1
-        elif snack_face == 'BOTTOM':
-            new_head_pos[1] -= 1
-        elif snack_face == 'LEFT':
-            new_head_pos[0] -= 1
-        elif snack_face == 'RIGHT':
-            new_head_pos[0] += 1
-        new_head_pos = tuple(new_head_pos)
-
-        if new_head_pos in snack_pos:
-            snack_pos = []
-            game_status = 'GAMEOVER'
-            glutChangeToMenuEntry(1, 'restart', 3);
-        else:
-            snack_pos.insert(0, new_head_pos)
-
+    snack_pos.insert(0, new_head_pos)
 
     glutPostRedisplay()
 
