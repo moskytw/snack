@@ -91,7 +91,7 @@ def brick(x=0, y=0, size=0, angle=0):
 
     origin_color = glGetFloatv(GL_CURRENT_COLOR)
 
-    glColor(rgbhex('#FF0000'))
+    glColor(rgbhex('#B22222'))
     glBegin(GL_QUADS)
     glVertex2f(0, 0)
     glVertex2f(0, 1)
@@ -99,7 +99,7 @@ def brick(x=0, y=0, size=0, angle=0):
     glVertex2f(1, 0)
     glEnd()
 
-    glColor(rgbhex('#FFFFFF'))
+    glColor(rgbhex('#800000'))
     glBegin(GL_LINE_LOOP)
     glVertex2f(0, 0)
     glVertex2f(0, 1)
