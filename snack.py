@@ -159,6 +159,8 @@ UNIT   = 15
 WIDTH  = UNIT*48
 HEIGHT = UNIT*27
 
+snack_face = 'TOP'
+
 def init():
     glClearColor(*rgbhex('#FFFFFF'))
     glShadeModel(GL_SMOOTH)
@@ -259,7 +261,7 @@ def display():
 
     snack_body(x=UNIT*10, y=UNIT*7, size=UNIT*1.5)
     snack_body(x=UNIT*10, y=UNIT*8, size=UNIT*1.5)
-    snack_head(x=UNIT*10, y=UNIT*9, size=UNIT*1.5, face='RIGHT')
+    snack_head(x=UNIT*10, y=UNIT*9, size=UNIT*1.5, face=snack_face)
 
     glFlush()
 
@@ -273,6 +275,16 @@ def keyboard(key, x, y):
     if key == 'q':
         sys.exit(0)
 
+def special(key, x, y):
+    if key == 101:
+        snack_face = 'TOP'
+    elif key == 103:
+        snack_face = 'BOTTOM'
+    elif key == 100:
+        snack_face = 'LEFT'
+    elif key == 102:
+        snack_face = 'RIGHT'
+
 if __name__ == '__main__':
     glutInit(sys.argv)
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB)
@@ -282,5 +294,6 @@ if __name__ == '__main__':
     init()
     glutReshapeFunc(reshape)
     glutKeyboardFunc(keyboard)
+    glutSpecialFunc(special)
     glutDisplayFunc(display)
     glutMainLoop()
