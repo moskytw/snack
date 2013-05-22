@@ -197,7 +197,7 @@ HEIGHT = UNIT*UNIT_HEIGHT
 snack_face = 'TOP'
 snack_refresh = 200
 
-snack_pos = [[10, 8], [10, 7], [10, 6]]
+snack_pos = [(10, 8), (10, 7), (10, 6)]
 
 bricks_pos = None
 
@@ -371,21 +371,21 @@ def move_snack():
     if is_game_over:
         return
 
-    if bricks_pos and snack_pos and tuple(snack_pos[0]) in bricks_pos:
+    if bricks_pos and snack_pos and snack_pos[0] in bricks_pos:
         snack_pos = []
         is_game_over = True
         glutChangeToMenuEntry(1, 'restart', 3);
 
-    if fruits_pos and snack_pos and tuple(snack_pos[0]) in fruits_pos:
+    if fruits_pos and snack_pos and snack_pos[0] in fruits_pos:
         snack_refresh -= 50
-        fruits_pos.remove(tuple(snack_pos[0]))
+        fruits_pos.remove(snack_pos[0])
         fruits_pos.add(choice(spaces_pos))
 
     if snack_pos:
 
         snack_pos.pop(-1)
 
-        new_head_pos = list(snack_pos[0][:])
+        new_head_pos = list(snack_pos[0])
         if snack_face == 'TOP':
             new_head_pos[1] += 1
         elif snack_face == 'BOTTOM':
@@ -394,7 +394,7 @@ def move_snack():
             new_head_pos[0] -= 1
         elif snack_face == 'RIGHT':
             new_head_pos[0] += 1
-        snack_pos.insert(0, new_head_pos)
+        snack_pos.insert(0, tuple(new_head_pos))
 
     glutPostRedisplay()
 
