@@ -350,7 +350,7 @@ def render_snack_head(x=0, y=0, size=0, angle=0, face='TOP'):
 def render_snack():
 
     for unit_x, unit_y in reversed(snack_pos[1:]):
-        render_snack_body(x=UNIT*unit_x, y=UNIT*unit_y, size=UNIT*1.5)
+        render_snack_body(x=UNIT*unit_x, y=UNIT*unit_y, size=UNIT*1.3)
 
     unit_x, unit_y = snack_pos[0]
     render_snack_head(x=UNIT*unit_x, y=UNIT*unit_y, size=UNIT*1.5, face=snack_face)
