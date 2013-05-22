@@ -166,6 +166,8 @@ snack_pos = [[10, 8], [10, 7], [10, 6]]
 
 bricks_pos = None
 
+is_game_over = False
+
 def init():
     glClearColor(*rgbhex('#FFFFFF'))
     glShadeModel(GL_SMOOTH)
@@ -185,6 +187,7 @@ def render_grid():
     glColor(*origin_color)
 
 game_map = list(open('maps/game.txt'))
+game_over = list(open('maps/gameover.txt'))
 
 def render_map(map):
 
@@ -276,11 +279,13 @@ def display():
 
     glClear(GL_COLOR_BUFFER_BIT)
 
-    render_grid()
-    render_map(game_map)
-
-    if snack_pos:
+    if not is_game_over:
+        render_grid()
+        render_map(game_map)
         render_snack()
+    else:
+        render_grid()
+        render_map(game_over)
 
     glFlush()
 
@@ -312,11 +317,11 @@ def special(key, x, y):
 def move_snack():
 
     global snack_pos
-    global game_map
+    global is_game_over
 
     if bricks_pos and snack_pos and tuple(snack_pos[0]) in bricks_pos:
         snack_pos = []
-        game_map = list(open('maps/gameover.txt'))
+        is_game_over = True
 
     if snack_pos:
 
