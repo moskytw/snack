@@ -160,6 +160,7 @@ WIDTH  = UNIT*48
 HEIGHT = UNIT*27
 
 snack_face = 'TOP'
+snack_refresh = 500
 
 def init():
     glClearColor(*rgbhex('#FFFFFF'))
@@ -285,6 +286,10 @@ def special(key, x, y):
     elif key == 102:
         snack_face = 'RIGHT'
 
+def interval(value):
+    glutTimerFunc(snack_refresh, interval, 0)
+    glutPostRedisplay()
+
 if __name__ == '__main__':
     glutInit(sys.argv)
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB)
@@ -296,4 +301,5 @@ if __name__ == '__main__':
     glutKeyboardFunc(keyboard)
     glutSpecialFunc(special)
     glutDisplayFunc(display)
+    interval(0)
     glutMainLoop()
