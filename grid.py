@@ -34,6 +34,7 @@ def line(size=0, x=0, y=0, angle=0):
 
 WIDTH = 500
 HEIGHT = 500
+UNIT = 100
 
 def init():
     glClearColor(0, 0, 0, 0)
@@ -43,10 +44,10 @@ def display():
 
     glColor(0, 1, 0)
 
-    for x in range(0, WIDTH, 10):
+    for x in range(0, WIDTH, UNIT):
         line(size=HEIGHT, x=x, angle=90)
 
-    for y in range(0, HEIGHT, 10):
+    for y in range(0, HEIGHT, UNIT):
         line(size=WIDTH, y=y)
 
     glFlush()
