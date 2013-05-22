@@ -153,6 +153,38 @@ def circle(x=0, y=0, size=0, angle=0):
 
     glPopMatrix()
 
+def fruit(x=0, y=0, size=0, angle=0):
+
+    origin_color = glGetFloatv(GL_CURRENT_COLOR)
+    glPushMatrix()
+
+    glMatrixMode(GL_PROJECTION)
+    glTranslate(x, y, 0)
+    glRotate(angle, 0, 0, 1)
+    glScale(size, size, 1)
+
+    glColor(rgbhex('#DC143C'))
+
+    glBegin(GL_QUADS)
+    glVertex(0, 0)
+    glVertex(0, 1)
+    glVertex(1, 1)
+    glColor(rgbhex('#8B0000'))
+    glVertex(1, 0)
+    glEnd()
+
+    glColor(rgbhex('#800000'))
+
+    glBegin(GL_LINE_LOOP)
+    glVertex(0, 0)
+    glVertex(0, 1)
+    glVertex(1, 1)
+    glVertex(1, 0)
+    glEnd()
+
+    glPopMatrix()
+    glColor(*origin_color)
+
 # --- main ---
 
 UNIT   = 15
