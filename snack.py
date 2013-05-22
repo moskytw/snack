@@ -191,19 +191,39 @@ def snack_body(x=0, y=0, size=0, angle=0):
 
     glColor(*origin_color)
 
-def snack_head(x=0, y=0, size=0, angle=0):
+def snack_head(x=0, y=0, size=0, angle=0, face='TOP'):
 
     snack_body(x, y, size, angle)
 
     origin_color = glGetFloatv(GL_CURRENT_COLOR)
 
     glColor(rgbhex('#FFFFFF'))
-    unit_disk(x-size*0.3, y+size*0.25, size*0.3, angle)
-    unit_disk(x+size*0.3, y+size*0.25, size*0.3, angle)
+    if face == 'TOP':
+        unit_disk(x-size*0.3, y+size*0.25, size*0.3, angle)
+        unit_disk(x+size*0.3, y+size*0.25, size*0.3, angle)
+    elif face == 'BOTTOM':
+        unit_disk(x-size*0.3, y-size*0.25, size*0.3, angle)
+        unit_disk(x+size*0.3, y-size*0.25, size*0.3, angle)
+    elif face == 'RIGHT':
+        unit_disk(x+size*0.3, y-size*0.25, size*0.3, angle)
+        unit_disk(x+size*0.3, y+size*0.25, size*0.3, angle)
+    elif face == 'LEFT':
+        unit_disk(x-size*0.3, y+size*0.25, size*0.3, angle)
+        unit_disk(x-size*0.3, y-size*0.25, size*0.3, angle)
 
     glColor(rgbhex('#000000'))
-    unit_disk(x-size*0.3, y+size*0.25, size*0.15, angle)
-    unit_disk(x+size*0.3, y+size*0.25, size*0.15, angle)
+    if face == 'TOP':
+        unit_disk(x-size*0.3, y+size*0.25, size*0.15, angle)
+        unit_disk(x+size*0.3, y+size*0.25, size*0.15, angle)
+    elif face == 'BOTTOM':
+        unit_disk(x-size*0.3, y-size*0.25, size*0.15, angle)
+        unit_disk(x+size*0.3, y-size*0.25, size*0.15, angle)
+    elif face == 'RIGHT':
+        unit_disk(x+size*0.3, y-size*0.25, size*0.15, angle)
+        unit_disk(x+size*0.3, y+size*0.25, size*0.15, angle)
+    elif face == 'LEFT':
+        unit_disk(x-size*0.3, y+size*0.25, size*0.15, angle)
+        unit_disk(x-size*0.3, y-size*0.25, size*0.15, angle)
 
     glColor(*origin_color)
 
@@ -214,9 +234,9 @@ def display():
     render_grid()
     load_game()
 
-    snack_head(x=UNIT*10, y=UNIT*9, size=UNIT*1.5)
     snack_body(x=UNIT*10, y=UNIT*8, size=UNIT*1.5)
     snack_body(x=UNIT*10, y=UNIT*7, size=UNIT*1.5)
+    snack_head(x=UNIT*10, y=UNIT*9, size=UNIT*1.5, face='RIGHT')
 
     glFlush()
 
