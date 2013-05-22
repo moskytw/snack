@@ -4,7 +4,8 @@
 # --- import ---
 
 import sys
-import struct
+from math import cos, sin, pi
+from time import sleep
 
 try:
   from OpenGL.GL import *
@@ -112,8 +113,6 @@ def grass(x=0, y=0, size=0, angle=0):
     glColor(*origin_color)
 
 def disk_vertexes(delta):
-
-    from math import cos, sin, pi
 
     angle = .0
 
