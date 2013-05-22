@@ -482,7 +482,7 @@ def move_snack():
     glutPostRedisplay()
 
 def timer(value):
-    glutTimerFunc(snack_refresh, timer, 0)
+    glutTimerFunc(snack_refresh, timer, None)
     move_snack()
 
 def menu(idx):
@@ -516,6 +516,6 @@ if __name__ == '__main__':
     glutAddMenuEntry('exit', 2);
     glutAttachMenu(GLUT_RIGHT_BUTTON);
 
-    timer(0)
+    timer(None)
 
     glutMainLoop()
