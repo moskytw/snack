@@ -407,7 +407,7 @@ def display():
 
         glutPostRedisplay()
 
-    elif game_status == 'GAMING':
+    elif game_status in ('GAMING', 'PAUSE'):
 
         render_grid()
         render_map(map_gaming)
@@ -437,11 +437,15 @@ def keyboard(key, x, y):
 
     global game_status
 
-    if key == 'q':
-        sys.exit(0)
+    if key == 'p':
+        game_status = 'PAUSE'
+    elif key == 'c':
+        game_status = 'GAMING'
     elif key == 'r':
         game_status = 'INIT'
         glutPostRedisplay()
+    elif key == 'q':
+        sys.exit(0)
 
 def special(key, x, y):
 
@@ -466,7 +470,8 @@ def move_snack():
     global game_score
     global game_status
 
-    if not snack_pos: return
+    if not snack_pos or game_status == 'PAUSE':
+        return
 
     new_head_pos = list(snack_pos[0])
     if snack_face == 'TOP':
@@ -508,7 +513,7 @@ def menu(idx):
     global game_status
 
     if idx == 1:
-        pass
+        game_status = 'GAMING'
     elif idx == 2:
         sys.exit()
     elif idx == 3:
