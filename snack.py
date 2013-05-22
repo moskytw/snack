@@ -162,7 +162,7 @@ HEIGHT = UNIT*27
 snack_face = 'TOP'
 snack_refresh = 500
 
-snack_pos = [(10, 6), (10, 7), (10, 8)]
+snack_pos = [(10, 8), (10, 7), (10, 6)]
 
 def init():
     glClearColor(*rgbhex('#FFFFFF'))
@@ -206,7 +206,7 @@ def unit_circle(x=0, y=0, size=0, angle=0):
     # put center of this disk to the center of an unit
     circle(x+UNIT*0.5, y+UNIT*0.5, size*0.5, angle)
 
-def snack_body(x=0, y=0, size=0, angle=0):
+def render_snack_body(x=0, y=0, size=0, angle=0):
 
     origin_color = glGetFloatv(GL_CURRENT_COLOR)
 
@@ -217,9 +217,9 @@ def snack_body(x=0, y=0, size=0, angle=0):
 
     glColor(*origin_color)
 
-def snack_head(x=0, y=0, size=0, angle=0, face='TOP'):
+def render_snack_head(x=0, y=0, size=0, angle=0, face='TOP'):
 
-    snack_body(x, y, size, angle)
+    render_snack_body(x, y, size, angle)
 
     origin_color = glGetFloatv(GL_CURRENT_COLOR)
 
@@ -257,11 +257,11 @@ def snack_head(x=0, y=0, size=0, angle=0, face='TOP'):
 
 def render_snack():
 
-    for unit_x, unit_y in snack_pos[:-1]:
-        snack_body(x=UNIT*unit_x, y=UNIT*unit_y, size=UNIT*1.5)
+    for unit_x, unit_y in reversed(snack_pos[1:]):
+        render_snack_body(x=UNIT*unit_x, y=UNIT*unit_y, size=UNIT*1.5)
 
-    unit_x, unit_y = snack_pos[-1]
-    snack_head(x=UNIT*unit_x, y=UNIT*unit_y, size=UNIT*1.5, face=snack_face)
+    unit_x, unit_y = snack_pos[0]
+    render_snack_head(x=UNIT*unit_x, y=UNIT*unit_y, size=UNIT*1.5, face=snack_face)
 
 def display():
 
