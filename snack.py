@@ -162,7 +162,7 @@ HEIGHT = UNIT*27
 snack_face = 'TOP'
 snack_refresh = 500
 
-snack_pos = [(10, 8), (10, 7), (10, 6)]
+snack_pos = [[10, 8], [10, 7], [10, 6]]
 
 def init():
     glClearColor(*rgbhex('#FFFFFF'))
@@ -285,6 +285,9 @@ def keyboard(key, x, y):
         sys.exit(0)
 
 def special(key, x, y):
+
+    global snack_face
+
     if key == 101:
         snack_face = 'TOP'
     elif key == 103:
@@ -295,7 +298,22 @@ def special(key, x, y):
         snack_face = 'RIGHT'
 
 def interval(value):
+
     glutTimerFunc(snack_refresh, interval, 0)
+
+    snack_pos.pop(-1)
+
+    new_head_pos = list(snack_pos[0][:])
+    if snack_face == 'TOP':
+        new_head_pos[1] += 1
+    elif snack_face == 'BOTTOM':
+        new_head_pos[1] -= 1
+    elif snack_face == 'LEFT':
+        new_head_pos[0] -= 1
+    elif snack_face == 'RIGHT':
+        new_head_pos[0] += 1
+    snack_pos.insert(0, new_head_pos)
+
     glutPostRedisplay()
 
 if __name__ == '__main__':
