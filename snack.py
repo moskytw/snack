@@ -255,9 +255,6 @@ def render_map(map):
 
             unit_x += 1
 
-    for unit_x, unit_y in fruits_pos:
-        fruit(x=UNIT*unit_x, y=UNIT*unit_y, size=UNIT)
-
 def unit_disk(x=0, y=0, size=0, angle=0):
     # put center of this disk to the center of an unit
     disk(x+UNIT*0.5, y+UNIT*0.5, size*0.5, angle)
@@ -323,6 +320,10 @@ def render_snack():
     unit_x, unit_y = snack_pos[0]
     render_snack_head(x=UNIT*unit_x, y=UNIT*unit_y, size=UNIT*1.5, face=snack_face)
 
+def render_fruits():
+    for unit_x, unit_y in fruits_pos:
+        fruit(x=UNIT*unit_x, y=UNIT*unit_y, size=UNIT)
+
 def display():
 
     glClear(GL_COLOR_BUFFER_BIT)
@@ -330,6 +331,7 @@ def display():
     if not is_game_over:
         render_grid()
         render_map(game_map)
+        render_fruits()
         render_snack()
     else:
         render_grid()
