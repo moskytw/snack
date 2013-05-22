@@ -186,7 +186,7 @@ def render_grid():
 
 game_map = list(open('maps/game.txt'))
 
-def load_game():
+def render_map(map):
 
     global bricks_pos
 
@@ -194,7 +194,7 @@ def load_game():
     
     unit_y = HEIGHT/UNIT
 
-    for blocks in game_map:
+    for blocks in map:
 
         unit_x = 0
         unit_y -= 1
@@ -277,7 +277,7 @@ def display():
     glClear(GL_COLOR_BUFFER_BIT)
 
     render_grid()
-    load_game()
+    render_map(game_map)
 
     render_snack()
 
@@ -309,6 +309,9 @@ def special(key, x, y):
     move_snack()
 
 def move_snack():
+
+    if bricks_pos and tuple(snack_pos[0]) in bricks_pos:
+        return
 
     snack_pos.pop(-1)
 
