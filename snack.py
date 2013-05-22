@@ -202,11 +202,11 @@ def number(x=0, y=0, size=0, angle=0):
     glVertex(0, 0)
     glVertex(0, 1)
     glVertex(1, 1)
-    glColor(rgbhex('#8B0000'))
+    glColor(rgbhex('#000000'))
     glVertex(1, 0)
     glEnd()
 
-    glColor(rgbhex('#800000'))
+    glColor(rgbhex('#006400'))
 
     glBegin(GL_LINE_LOOP)
     glVertex(0, 0)
