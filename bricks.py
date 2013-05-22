@@ -116,8 +116,6 @@ def display():
 
     glClear(GL_COLOR_BUFFER_BIT)
 
-    brick(x=UNIT, y=UNIT, size=UNIT, angle=30)
-
     render_grid()
     load_game()
 
