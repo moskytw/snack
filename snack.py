@@ -178,6 +178,16 @@ def load_game():
                 grass(x=x, y=y, size=UNIT)
             x += UNIT
 
+def snack_body(x=0, y=0, size=0, angle=0):
+
+    origin_color = glGetFloatv(GL_CURRENT_COLOR)
+
+    glColor(rgbhex('#228B22'))
+    # put center of this disk to the center of an unit
+    disk(x+UNIT*0.5, y+UNIT*0.5, size*0.5, angle)
+
+    glColor(*origin_color)
+
 def display():
 
     glClear(GL_COLOR_BUFFER_BIT)
@@ -185,8 +195,8 @@ def display():
     render_grid()
     load_game()
 
-    glColor(rgbhex('#228B22'))
-    disk(x=UNIT, y=UNIT, size=UNIT)
+    snack_body(x=UNIT*10, y=UNIT*8, size=UNIT*1.5)
+    snack_body(x=UNIT*10, y=UNIT*7, size=UNIT*1.5)
 
     glFlush()
 
