@@ -84,6 +84,20 @@ UNIT = 100
 def init():
     glClearColor(*rgbhex('#FFFFFF'))
 
+def load_game():
+
+    y = HEIGHT
+
+    for blocks in open('maps/game.txt'):
+
+        x = 0
+        y -= UNIT
+
+        for block in blocks:
+            if block == '+':
+                brick(x=x, y=y, size=UNIT)
+            x += UNIT
+
 def display():
 
     glClear(GL_COLOR_BUFFER_BIT)
@@ -97,6 +111,8 @@ def display():
         line(y=y, size=WIDTH)
 
     brick(x=UNIT, y=UNIT, size=UNIT, angle=30)
+
+    load_game()
 
     glFlush()
 
