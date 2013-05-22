@@ -353,8 +353,9 @@ def render_snack():
     for unit_x, unit_y in reversed(snack_pos[1:]):
         render_snack_body(x=UNIT*unit_x, y=UNIT*unit_y, size=UNIT*1.3)
 
-    unit_x, unit_y = snack_pos[0]
-    render_snack_head(x=UNIT*unit_x, y=UNIT*unit_y, size=UNIT*1.5, face=snack_face)
+    if snack_pos:
+        unit_x, unit_y = snack_pos[0]
+        render_snack_head(x=UNIT*unit_x, y=UNIT*unit_y, size=UNIT*1.5, face=snack_face)
 
 def render_fruits():
     for unit_x, unit_y in fruits_pos:
@@ -406,7 +407,7 @@ def display():
 
         glutPostRedisplay()
 
-    elif game_status in ('GAMING', 'PAUSE'):
+    elif game_status in ('GAMING', 'DYING', 'PAUSE'):
 
         render_grid()
         render_map(map_gaming)
@@ -469,19 +470,22 @@ def move_snack():
     global game_score
     global game_status
 
-    if not snack_pos or game_status == 'PAUSE':
+    if game_status in ('INIT', 'PAUSE', 'GAMEOVER'):
         return
 
-    new_head_pos = list(snack_pos[0])
-    if snack_face == 'TOP':
-        new_head_pos[1] += 1
-    elif snack_face == 'BOTTOM':
-        new_head_pos[1] -= 1
-    elif snack_face == 'LEFT':
-        new_head_pos[0] -= 1
-    elif snack_face == 'RIGHT':
-        new_head_pos[0] += 1
-    new_head_pos = tuple(new_head_pos)
+    new_head_pos = None
+
+    if snack_pos and game_status == 'GAMING':
+        new_head_pos = list(snack_pos[0])
+        if snack_face == 'TOP':
+            new_head_pos[1] += 1
+        elif snack_face == 'BOTTOM':
+            new_head_pos[1] -= 1
+        elif snack_face == 'LEFT':
+            new_head_pos[0] -= 1
+        elif snack_face == 'RIGHT':
+            new_head_pos[0] += 1
+        new_head_pos = tuple(new_head_pos)
 
     if new_head_pos in fruits_pos:
 
@@ -495,13 +499,18 @@ def move_snack():
 
     elif new_head_pos in bricks_pos or new_head_pos in snack_pos:
 
+        snack_pos.pop()
+        game_status = 'DYING'
+
+    elif snack_pos:
+
+        snack_pos.pop()
+
+    if not snack_pos:
         game_status = 'GAMEOVER'
 
-    else:
-
-        snack_pos.pop(-1)
-
-    snack_pos.insert(0, new_head_pos)
+    if new_head_pos and game_status != 'DYING':
+        snack_pos.insert(0, new_head_pos)
 
     glutPostRedisplay()
 
