@@ -12,11 +12,7 @@ except:
     print 'It needs PyOpenGL and OpenGL.'
     sys.exit()
 
-WIDTH = 500
-HEIGHT = 500
-
-def init():
-    glClearColor(0, 0, 0, 0)
+# --- helpers ---
 
 def line(size=0, x=0, y=0, angle=0):
 
@@ -33,6 +29,14 @@ def line(size=0, x=0, y=0, angle=0):
     glEnd()
 
     glPopMatrix()
+
+# --- end ---
+
+WIDTH = 500
+HEIGHT = 500
+
+def init():
+    glClearColor(0, 0, 0, 0)
 
 def display():
     glClear(GL_COLOR_BUFFER_BIT)
