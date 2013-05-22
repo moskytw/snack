@@ -325,6 +325,7 @@ def move_snack():
     if bricks_pos and snack_pos and tuple(snack_pos[0]) in bricks_pos:
         snack_pos = []
         is_game_over = True
+        glutChangeToMenuEntry(1, 'restart', 3);
 
     if snack_pos:
 
@@ -347,7 +348,19 @@ def interval(value):
     glutTimerFunc(snack_refresh, interval, 0)
     move_snack()
 
+def menu(idx):
+
+    global snack_pos
+    global is_game_over
+
+    if idx == 2:
+        sys.exit()
+    elif idx == 3:
+        snack_pos = [[10, 8]]
+        is_game_over = False
+
 if __name__ == '__main__':
+
     glutInit(sys.argv)
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB)
     glutInitWindowSize(WIDTH, HEIGHT)
@@ -358,5 +371,11 @@ if __name__ == '__main__':
     glutKeyboardFunc(keyboard)
     glutSpecialFunc(special)
     glutDisplayFunc(display)
+
+    glutCreateMenu(menu);
+    glutAddMenuEntry('continue', 1);
+    glutAddMenuEntry('exit', 2);
+    glutAttachMenu(GLUT_RIGHT_BUTTON);
+
     interval(0)
     glutMainLoop()
