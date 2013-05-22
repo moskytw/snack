@@ -219,6 +219,8 @@ def snack_head(x=0, y=0, size=0, angle=0, face='TOP'):
 
     origin_color = glGetFloatv(GL_CURRENT_COLOR)
 
+    # TODO: refacor it
+
     glColor(rgbhex('#FFFFFF'))
     if face == 'TOP':
         unit_disk(x-size*0.3, y+size*0.25, size*0.3, angle)
