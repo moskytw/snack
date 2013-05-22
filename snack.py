@@ -228,22 +228,19 @@ UNIT_HEIGHT = 27
 WIDTH  = UNIT*UNIT_WIDTH
 HEIGHT = UNIT*UNIT_HEIGHT
 
-snack_face = 'TOP'
-snack_refresh = 200
+snack_face    = None # TOP, BOTTOM, LEFT, or RIGHT
+snack_refresh = None # int in msec
+snack_pos     = None # tuples in list
 
-snack_pos = [(10, 8), (10, 7), (10, 6)]
+game_score = None
+game_status = 'INIT'
 
-bricks_pos = None
+bricks_pos = set()
+spaces_pos = []
+fruits_pos = set()
 
-spaces_pos = None
-fruits_pos = set([(5, 5)])
-
-game_status = 'GAMING'
-
-score = 0
-
-game_map = list(open('maps/game.txt'))
-game_over = list(open('maps/gameover.txt'))
+map_gaming   = list(open('maps/game.txt'))
+map_gameover = list(open('maps/gameover.txt'))
 
 # -- end --
 
@@ -388,25 +385,45 @@ def render_number(n, unit_x_offset=0, unit_y_offset=0):
 
 def display():
 
+    global snack_face
+    global snack_refresh
+    global snack_pos
+    global fruits_pos
+    global game_score
+    global game_status
+
     glClear(GL_COLOR_BUFFER_BIT)
 
-    if game_status == 'GAMEOVER':
+    if game_status == 'INIT':
+
+        snack_face    = 'TOP'
+        snack_refresh = 500
+        snack_pos     = [(10, 8), (10, 7), (10, 6)]
+
+        fruits_pos = set([(5, 5)])
+
+        game_score = 0
+        game_status = 'GAMING'
+
+        glutPostRedisplay()
+
+    elif game_status == 'GAMING':
 
         render_grid()
-        render_map(game_over)
+        render_map(map_gaming)
+        render_fruits()
+        render_snack()
+
+    elif game_status == 'GAMEOVER':
+
+        render_grid()
+        render_map(map_gameover)
 
         unit_x_offset = 28
         unit_y_offset = 19
-        for c in str(score):
+        for c in str(game_score):
             pos = render_number(int(c), unit_x_offset, unit_y_offset)
             unit_x_offset = pos[0]
-
-    else:
-
-        render_grid()
-        render_map(game_map)
-        render_fruits()
-        render_snack()
 
     glFlush()
 
@@ -417,8 +434,14 @@ def reshape(w, h):
     gluOrtho2D(0.0, w, 0.0, h)
 
 def keyboard(key, x, y):
+
+    global game_status
+
     if key == 'q':
         sys.exit(0)
+    elif key == 'r':
+        game_status = 'INIT'
+        glutPostRedisplay()
 
 def special(key, x, y):
 
@@ -440,7 +463,7 @@ def move_snack():
     global snack_pos
     global game_status
     global snack_refresh
-    global score
+    global game_score
 
     if game_status == 'GAMEOVER':
         return
@@ -452,7 +475,7 @@ def move_snack():
 
     if fruits_pos and snack_pos and snack_pos[0] in fruits_pos:
         snack_refresh -= 50
-        score += 1
+        game_score += 1
         fruits_pos.remove(snack_pos[0])
         fruits_pos.add(choice(spaces_pos))
 
@@ -494,7 +517,7 @@ def menu(idx):
         sys.exit()
     elif idx == 3:
         snack_pos = [[10, 8]]
-        game_status = 'RESTART'
+        game_status = 'INIT'
 
 if __name__ == '__main__':
 
