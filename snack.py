@@ -285,7 +285,7 @@ def render_map(map_):
             elif block == 'G':
                 grass(x=UNIT*unit_x, y=UNIT*unit_y, size=UNIT)
 
-            if block != '+':
+            if block != '+' and unit_y >= 2:
                 spaces_pos.append((unit_x, unit_y))
 
             unit_x += 1
@@ -487,7 +487,7 @@ def move_snack():
         fruits_pos.remove(new_head_pos)
         fruits_pos.add(choice(spaces_pos))
 
-    elif new_head_pos in bricks_pos:
+    elif new_head_pos in bricks_pos or new_head_pos in snack_pos:
 
         game_status = 'GAMEOVER'
 
