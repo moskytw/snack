@@ -220,6 +220,8 @@ def number(x=0, y=0, size=0, angle=0):
 
 # --- main ---
 
+# -- globals --
+
 UNIT   = 15
 UNIT_WIDTH = 48
 UNIT_HEIGHT = 27
@@ -240,6 +242,11 @@ is_game_over = False
 
 score = 0
 
+game_map = list(open('maps/game.txt'))
+game_over = list(open('maps/gameover.txt'))
+
+# -- end --
+
 def init():
     glClearColor(*rgbhex('#FFFFFF'))
     glShadeModel(GL_SMOOTH)
@@ -257,9 +264,6 @@ def render_grid():
         line(y=y, size=WIDTH)
 
     glColor(*origin_color)
-
-game_map = list(open('maps/game.txt'))
-game_over = list(open('maps/gameover.txt'))
 
 def render_map(map_):
 
