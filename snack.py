@@ -200,6 +200,9 @@ snack_pos = [[10, 8], [10, 7], [10, 6]]
 
 bricks_pos = None
 
+spaces_pos = None
+fruits_pos = set([(5, 5)])
+
 is_game_over = False
 
 def init():
@@ -226,8 +229,10 @@ game_over = list(open('maps/gameover.txt'))
 def render_map(map):
 
     global bricks_pos
+    global spaces_pos
 
     bricks_pos = set()
+    spaces_pos = []
     
     unit_y = HEIGHT/UNIT
 
@@ -237,12 +242,20 @@ def render_map(map):
         unit_y -= 1
 
         for block in blocks:
+
             if block == '+':
                 brick(x=UNIT*unit_x, y=UNIT*unit_y, size=UNIT)
                 bricks_pos.add((unit_x, unit_y))
             elif block == 'G':
                 grass(x=UNIT*unit_x, y=UNIT*unit_y, size=UNIT)
+
+            if block != '+':
+                spaces_pos.append((unit_x, unit_y))
+
             unit_x += 1
+
+    for unit_x, unit_y in fruits_pos:
+        fruit(x=UNIT*unit_x, y=UNIT*unit_y, size=UNIT)
 
 def unit_disk(x=0, y=0, size=0, angle=0):
     # put center of this disk to the center of an unit
@@ -360,6 +373,13 @@ def move_snack():
         snack_pos = []
         is_game_over = True
         glutChangeToMenuEntry(1, 'restart', 3);
+
+    if fruits_pos and snack_pos and tuple(snack_pos[0]) in fruits_pos:
+        from random import choice
+        global snack_refresh
+        snack_refresh -= 50
+        fruits_pos.remove(tuple(snack_pos[0]))
+        fruits_pos.add(choice(spaces_pos))
 
     if snack_pos:
 
