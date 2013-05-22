@@ -5,6 +5,7 @@
 
 import sys
 from math import cos, sin, pi
+from random import choice
 from time import sleep
 
 try:
@@ -365,6 +366,7 @@ def move_snack():
 
     global snack_pos
     global is_game_over
+    global snack_refresh
 
     if is_game_over:
         return
@@ -375,8 +377,6 @@ def move_snack():
         glutChangeToMenuEntry(1, 'restart', 3);
 
     if fruits_pos and snack_pos and tuple(snack_pos[0]) in fruits_pos:
-        from random import choice
-        global snack_refresh
         snack_refresh -= 50
         fruits_pos.remove(tuple(snack_pos[0]))
         fruits_pos.add(choice(spaces_pos))
