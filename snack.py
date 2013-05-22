@@ -360,15 +360,15 @@ def render_fruits():
 
 numbers_map = dict((i, list(open('numbers/%s.txt' % i))) for i in range(10))
 
-def render_number(n):
+def render_number(n, unit_x_offset=0, unit_y_offset=0):
 
     map_ = numbers_map[n]
 
-    unit_y = UNIT_HEIGHT
+    unit_y = UNIT_HEIGHT-unit_y_offset
 
     for blocks in map_:
 
-        unit_x = 0
+        unit_x = unit_x_offset
         unit_y -= 1
 
         for block in blocks:
@@ -380,20 +380,29 @@ def render_number(n):
 
             unit_x += 1
 
+    return (unit_x, unit_y)
+
 def display():
 
     glClear(GL_COLOR_BUFFER_BIT)
 
     if not is_game_over:
+
         render_grid()
         render_map(game_map)
         render_fruits()
         render_snack()
-        render_number(0)
+
     else:
+
         render_grid()
         render_map(game_over)
-        render_number(0)
+
+        unit_x_offset = 28
+        unit_y_offset = 19
+        for c in str(score):
+            pos = render_number(int(c), unit_x_offset, unit_y_offset)
+            unit_x_offset = pos[0]
 
     glFlush()
 
@@ -501,5 +510,5 @@ if __name__ == '__main__':
     glutAddMenuEntry('exit', 2);
     glutAttachMenu(GLUT_RIGHT_BUTTON);
 
-    #interval(0)
+    interval(0)
     glutMainLoop()
