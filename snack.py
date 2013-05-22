@@ -241,6 +241,7 @@ fruits_pos = set()
 
 map_gaming   = list(open('maps/game.txt'))
 map_gameover = list(open('maps/gameover.txt'))
+map_numbers  = dict((i, list(open('numbers/%s.txt' % i))) for i in range(10))
 
 # -- end --
 
@@ -359,11 +360,9 @@ def render_fruits():
     for unit_x, unit_y in fruits_pos:
         fruit(x=UNIT*unit_x, y=UNIT*unit_y, size=UNIT)
 
-numbers_map = dict((i, list(open('numbers/%s.txt' % i))) for i in range(10))
-
 def render_number(n, unit_x_offset=0, unit_y_offset=0):
 
-    map_ = numbers_map[n]
+    map_ = map_numbers[n]
 
     unit_y = UNIT_HEIGHT-unit_y_offset
 
