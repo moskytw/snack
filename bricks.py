@@ -44,42 +44,6 @@ def line(x=0, y=0, size=0, angle=0):
 
     glPopMatrix()
 
-def square(x=0, y=0, size=0, angle=0):
-
-    glPushMatrix()
-
-    glMatrixMode(GL_PROJECTION)
-    glTranslate(x, y, 0)
-    glRotate(angle, 0, 0, 1)
-    glScale(size, size, 1)
-
-    glBegin(GL_QUADS)
-    glVertex2f(0, 0)
-    glVertex2f(0, 1)
-    glVertex2f(1, 1)
-    glVertex2f(1, 0)
-    glEnd()
-
-    glPopMatrix()
-
-def border(x=0, y=0, size=0, angle=0):
-
-    glPushMatrix()
-
-    glMatrixMode(GL_PROJECTION)
-    glTranslate(x, y, 0)
-    glRotate(angle, 0, 0, 1)
-    glScale(size, size, 1)
-
-    glBegin(GL_LINE_LOOP)
-    glVertex2f(0, 0)
-    glVertex2f(0, 1)
-    glVertex2f(1, 1)
-    glVertex2f(1, 0)
-    glEnd()
-
-    glPopMatrix()
-
 def brick(x=0, y=0, size=0, angle=0):
 
     glPushMatrix()
