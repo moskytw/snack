@@ -75,7 +75,37 @@ def brick(x=0, y=0, size=0, angle=0):
     glPopMatrix()
     glColor(*origin_color)
 
+def grass(x=0, y=0, size=0, angle=0):
+
+    origin_color = glGetFloatv(GL_CURRENT_COLOR)
+    glPushMatrix()
+
+    glMatrixMode(GL_PROJECTION)
+    glTranslate(x, y, 0)
+    glRotate(angle, 0, 0, 1)
+    glScale(size, size, 1)
+
+    glColor(rgbhex('#008000'))
+
+    glBegin(GL_TRIANGLES)
+
+    glVertex2f(0.0, 0.0)
+    glVertex2f(0.0, 1.0)
+    glVertex2f(1.0, 0.0)
+
+    glVertex2f(0.5, 0.0)
+    glVertex2f(1.0, 1.0)
+    glVertex2f(1.5, 0.0)
+
+    glVertex2f(1.0, 0.0)
+    glVertex2f(2.0, 1.0)
+    glVertex2f(2.0, 0.0)
+
+    glEnd()
+
     glPopMatrix()
+    glColor(*origin_color)
+
 
 # --- main ---
 
@@ -112,6 +142,8 @@ def load_game():
         for block in blocks:
             if block == '+':
                 brick(x=x, y=y, size=UNIT)
+            elif block == 'G':
+                grass(x=x, y=y, size=UNIT)
             x += UNIT
 
 def display():
