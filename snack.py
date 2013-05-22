@@ -111,6 +111,32 @@ def grass(x=0, y=0, size=0, angle=0):
     glPopMatrix()
     glColor(*origin_color)
 
+def disk(x=0, y=0, size=0, angle=0):
+
+    glPushMatrix()
+
+    glMatrixMode(GL_PROJECTION)
+    glTranslate(x, y, 0)
+    glRotate(angle, 0, 0, 1)
+    glScale(size, size, 1)
+
+    from math import cos, sin, pi
+
+    angle = .0
+    delta = 1.0/size
+
+    glBegin(GL_POLYGON)
+
+    while angle < 2*pi:
+        glVertex(
+            cos(angle),
+            sin(angle),
+        );
+        angle += delta
+
+    glEnd()
+
+    glPopMatrix()
 
 # --- main ---
 
@@ -158,6 +184,9 @@ def display():
 
     render_grid()
     load_game()
+
+    glColor(rgbhex('#228B22'))
+    disk(x=UNIT, y=UNIT, size=UNIT)
 
     glFlush()
 
