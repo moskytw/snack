@@ -510,13 +510,13 @@ def timer(value):
 
 def menu(idx):
 
-    global snack_pos
     global game_status
 
-    if idx == 2:
+    if idx == 1:
+        pass
+    elif idx == 2:
         sys.exit()
     elif idx == 3:
-        snack_pos = [[10, 8]]
         game_status = 'INIT'
 
 if __name__ == '__main__':
