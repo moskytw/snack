@@ -299,9 +299,9 @@ def special(key, x, y):
     elif key == 102:
         snack_face = 'RIGHT'
 
-def interval(value):
+    move_snack()
 
-    glutTimerFunc(snack_refresh, interval, 0)
+def move_snack():
 
     snack_pos.pop(-1)
 
@@ -317,6 +317,10 @@ def interval(value):
     snack_pos.insert(0, new_head_pos)
 
     glutPostRedisplay()
+
+def interval(value):
+    glutTimerFunc(snack_refresh, interval, 0)
+    move_snack()
 
 if __name__ == '__main__':
     glutInit(sys.argv)
