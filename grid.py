@@ -38,10 +38,12 @@ def display():
     glClear(GL_COLOR_BUFFER_BIT)
 
     glColor(0, 1, 0)
-    line(size=100, x=100, y=100)
 
-    glColor(1, 0, 0)
-    line(size=100, x=100, y=100, angle=90)
+    for x in range(0, WIDTH, 10):
+        line(size=HEIGHT, x=x, angle=90)
+
+    for y in range(0, HEIGHT, 10):
+        line(size=WIDTH, y=y)
 
     glFlush()
 
