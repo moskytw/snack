@@ -18,30 +18,30 @@ HEIGHT = 500
 def init():
     glClearColor(0, 0, 0, 0)
 
-def render_line():
+def line(size=0, x=0, y=0, angle=0):
+
+    glPushMatrix()
+
+    glMatrixMode(GL_PROJECTION)
+    glTranslate(x, y, 0)
+    glRotate(angle, 0, 0, 1)
+    glScale(size, 1, 1)
+
     glBegin(GL_LINES)
     glVertex2f(0, 0)
     glVertex2f(1, 0)
     glEnd()
 
+    glPopMatrix()
+
 def display():
     glClear(GL_COLOR_BUFFER_BIT)
 
-    glPushMatrix()
-    glMatrixMode(GL_PROJECTION)
-    glTranslate(0, 100, 0)
-    glScale(100, 1, 1)
     glColor(0, 1, 0)
-    render_line()
-    glPopMatrix()
+    line(size=100, x=100, y=100)
 
-    glPushMatrix()
-    glMatrixMode(GL_PROJECTION)
-    glTranslate(0, 200, 0)
-    glScale(100, 1, 1)
     glColor(1, 0, 0)
-    render_line()
-    glPopMatrix()
+    line(size=100, x=100, y=100, angle=90)
 
     glFlush()
 
