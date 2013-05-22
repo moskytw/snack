@@ -5,7 +5,7 @@
 
 import sys
 from math import cos, sin, pi
-from random import choice
+from random import choice, randint
 from time import sleep
 
 try:
@@ -490,6 +490,8 @@ def move_snack():
 
         fruits_pos.remove(new_head_pos)
         fruits_pos.add(choice(spaces_pos))
+        if randint(0, 1) == 1:
+            fruits_pos.add(choice(spaces_pos))
 
     elif new_head_pos in bricks_pos or new_head_pos in snack_pos:
 
