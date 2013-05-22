@@ -1,6 +1,8 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# --- import ---
+
 import sys
 import struct
 
@@ -30,7 +32,7 @@ def line(size=0, x=0, y=0, angle=0):
 
     glPopMatrix()
 
-# --- end ---
+# --- main ---
 
 WIDTH = 500
 HEIGHT = 500
