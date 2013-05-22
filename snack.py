@@ -162,6 +162,8 @@ HEIGHT = UNIT*27
 snack_face = 'TOP'
 snack_refresh = 500
 
+snack_pos = [(10, 6), (10, 7), (10, 8)]
+
 def init():
     glClearColor(*rgbhex('#FFFFFF'))
     glShadeModel(GL_SMOOTH)
@@ -253,6 +255,14 @@ def snack_head(x=0, y=0, size=0, angle=0, face='TOP'):
 
     glColor(*origin_color)
 
+def render_snack():
+
+    for unit_x, unit_y in snack_pos[:-1]:
+        snack_body(x=UNIT*unit_x, y=UNIT*unit_y, size=UNIT*1.5)
+
+    unit_x, unit_y = snack_pos[-1]
+    snack_head(x=UNIT*unit_x, y=UNIT*unit_y, size=UNIT*1.5, face=snack_face)
+
 def display():
 
     glClear(GL_COLOR_BUFFER_BIT)
@@ -260,9 +270,7 @@ def display():
     render_grid()
     load_game()
 
-    snack_body(x=UNIT*10, y=UNIT*7, size=UNIT*1.5)
-    snack_body(x=UNIT*10, y=UNIT*8, size=UNIT*1.5)
-    snack_head(x=UNIT*10, y=UNIT*9, size=UNIT*1.5, face=snack_face)
+    render_snack()
 
     glFlush()
 
