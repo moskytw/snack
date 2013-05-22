@@ -182,11 +182,13 @@ def render_grid():
 
     glColor(*origin_color)
 
+game_map = list(open('maps/game.txt'))
+
 def load_game():
 
     y = HEIGHT
 
-    for blocks in open('maps/game.txt'):
+    for blocks in game_map:
 
         x = 0
         y -= UNIT
