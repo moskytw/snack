@@ -188,8 +188,10 @@ def fruit(x=0, y=0, size=0, angle=0):
 # --- main ---
 
 UNIT   = 15
-WIDTH  = UNIT*48
-HEIGHT = UNIT*27
+UNIT_WIDTH = 48
+UNIT_HEIGHT = 27
+WIDTH  = UNIT*UNIT_WIDTH
+HEIGHT = UNIT*UNIT_HEIGHT
 
 snack_face = 'TOP'
 snack_refresh = 200
