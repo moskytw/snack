@@ -460,11 +460,13 @@ def special(key, x, y):
 
 def move_snack():
 
+    global snack_refresh
     global snack_pos
+    global fruits_pos
+    global game_score
+    global game_status
 
     if not snack_pos: return
-
-    snack_pos.pop(-1)
 
     new_head_pos = list(snack_pos[0])
     if snack_face == 'TOP':
@@ -476,6 +478,22 @@ def move_snack():
     elif snack_face == 'RIGHT':
         new_head_pos[0] += 1
     new_head_pos = tuple(new_head_pos)
+
+    if new_head_pos in fruits_pos:
+
+        snack_refresh = int(snack_refresh*0.8)
+        game_score += 1
+
+        fruits_pos.remove(new_head_pos)
+        fruits_pos.add(choice(spaces_pos))
+
+    elif new_head_pos in bricks_pos:
+
+        game_status = 'GAMEOVER'
+
+    else:
+
+        snack_pos.pop(-1)
 
     snack_pos.insert(0, new_head_pos)
 
