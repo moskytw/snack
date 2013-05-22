@@ -16,7 +16,7 @@ except:
 
 # --- helpers ---
 
-def line(size=0, x=0, y=0, angle=0):
+def line(x=0, y=0, size=0, angle=0):
 
     glPushMatrix()
 
@@ -47,10 +47,10 @@ def display():
     glColor(0, 1, 0)
 
     for x in range(0, WIDTH, UNIT):
-        line(size=HEIGHT, x=x, angle=90)
+        line(x=x, size=HEIGHT, angle=90)
 
     for y in range(0, HEIGHT, UNIT):
-        line(size=WIDTH, y=y)
+        line(y=y, size=WIDTH)
 
     glFlush()
 
