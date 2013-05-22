@@ -261,7 +261,7 @@ def render_grid():
 game_map = list(open('maps/game.txt'))
 game_over = list(open('maps/gameover.txt'))
 
-def render_map(map):
+def render_map(map_):
 
     global bricks_pos
     global spaces_pos
@@ -271,7 +271,7 @@ def render_map(map):
     
     unit_y = HEIGHT/UNIT
 
-    for blocks in map:
+    for blocks in map_:
 
         unit_x = 0
         unit_y -= 1
@@ -358,29 +358,27 @@ def render_fruits():
     for unit_x, unit_y in fruits_pos:
         fruit(x=UNIT*unit_x, y=UNIT*unit_y, size=UNIT)
 
-numbers_map = dict((str(i), list(open('numbers/%s.txt' % i))) for i in range(10))
+numbers_map = dict((i, list(open('numbers/%s.txt' % i))) for i in range(10))
 
-def render_score():
+def render_number(n):
 
-    score_str = str(score)
+    map_ = numbers_map[n]
 
-    for c in score_str:
+    unit_y = HEIGHT/UNIT
 
-        for line in numbers_map[c]:
+    for blocks in map_:
 
-            unit_y = UNIT_HEIGHT
+        unit_x = 0
+        unit_y -= 1
 
-            for blocks in line:
+        for block in blocks:
 
-                unit_x = 0
-                unit_y -= 1
+            if block == '+':
+                number(x=UNIT*unit_x, y=UNIT*unit_y, size=UNIT)
+            elif block == 'G':
+                grass(x=UNIT*unit_x, y=UNIT*unit_y, size=UNIT)
 
-                for block in blocks:
-
-                    if block == '+':
-                        number(x=unit_x, y=unit_y, size=UNIT)
-
-                    unit_x += 1
+            unit_x += 1
 
 def display():
 
@@ -391,10 +389,11 @@ def display():
         render_map(game_map)
         render_fruits()
         render_snack()
+        render_number(0)
     else:
         render_grid()
         render_map(game_over)
-        render_score()
+        render_number(0)
 
     glFlush()
 
@@ -502,5 +501,5 @@ if __name__ == '__main__':
     glutAddMenuEntry('exit', 2);
     glutAttachMenu(GLUT_RIGHT_BUTTON);
 
-    interval(0)
+    #interval(0)
     glutMainLoop()
