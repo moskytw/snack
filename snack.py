@@ -279,7 +279,8 @@ def display():
     render_grid()
     render_map(game_map)
 
-    render_snack()
+    if snack_pos:
+        render_snack()
 
     glFlush()
 
@@ -310,21 +311,27 @@ def special(key, x, y):
 
 def move_snack():
 
-    if bricks_pos and tuple(snack_pos[0]) in bricks_pos:
-        return
+    global snack_pos
+    global game_map
 
-    snack_pos.pop(-1)
+    if bricks_pos and snack_pos and tuple(snack_pos[0]) in bricks_pos:
+        snack_pos = []
+        game_map = list(open('maps/gameover.txt'))
 
-    new_head_pos = list(snack_pos[0][:])
-    if snack_face == 'TOP':
-        new_head_pos[1] += 1
-    elif snack_face == 'BOTTOM':
-        new_head_pos[1] -= 1
-    elif snack_face == 'LEFT':
-        new_head_pos[0] -= 1
-    elif snack_face == 'RIGHT':
-        new_head_pos[0] += 1
-    snack_pos.insert(0, new_head_pos)
+    if snack_pos:
+
+        snack_pos.pop(-1)
+
+        new_head_pos = list(snack_pos[0][:])
+        if snack_face == 'TOP':
+            new_head_pos[1] += 1
+        elif snack_face == 'BOTTOM':
+            new_head_pos[1] -= 1
+        elif snack_face == 'LEFT':
+            new_head_pos[0] -= 1
+        elif snack_face == 'RIGHT':
+            new_head_pos[0] += 1
+        snack_pos.insert(0, new_head_pos)
 
     glutPostRedisplay()
 
