@@ -46,6 +46,7 @@ def line(x=0, y=0, size=0, angle=0):
 
 def brick(x=0, y=0, size=0, angle=0):
 
+    origin_color = glGetFloatv(GL_CURRENT_COLOR)
     glPushMatrix()
 
     glMatrixMode(GL_PROJECTION)
@@ -53,9 +54,8 @@ def brick(x=0, y=0, size=0, angle=0):
     glRotate(angle, 0, 0, 1)
     glScale(size, size, 1)
 
-    origin_color = glGetFloatv(GL_CURRENT_COLOR)
-
     glColor(rgbhex('#B22222'))
+
     glBegin(GL_QUADS)
     glVertex2f(0, 0)
     glVertex2f(0, 1)
@@ -64,6 +64,7 @@ def brick(x=0, y=0, size=0, angle=0):
     glEnd()
 
     glColor(rgbhex('#800000'))
+
     glBegin(GL_LINE_LOOP)
     glVertex2f(0, 0)
     glVertex2f(0, 1)
@@ -71,9 +72,8 @@ def brick(x=0, y=0, size=0, angle=0):
     glVertex2f(1, 0)
     glEnd()
 
-    glColor(*origin_color)
-
     glPopMatrix()
+    glColor(*origin_color)
 
 # --- main ---
 
