@@ -131,7 +131,7 @@ if __name__ == '__main__':
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB)
     glutInitWindowSize(WIDTH, HEIGHT)
     glutInitWindowPosition(100, 100)
-    glutCreateWindow('Grid')
+    glutCreateWindow('Bricks')
     init()
     glutReshapeFunc(reshape)
     glutKeyboardFunc(keyboard)
