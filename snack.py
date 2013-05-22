@@ -238,7 +238,7 @@ bricks_pos = None
 spaces_pos = None
 fruits_pos = set([(5, 5)])
 
-is_game_over = False
+game_status = 'GAMING'
 
 score = 0
 
@@ -390,14 +390,7 @@ def display():
 
     glClear(GL_COLOR_BUFFER_BIT)
 
-    if not is_game_over:
-
-        render_grid()
-        render_map(game_map)
-        render_fruits()
-        render_snack()
-
-    else:
+    if game_status == 'GAMEOVER':
 
         render_grid()
         render_map(game_over)
@@ -407,6 +400,13 @@ def display():
         for c in str(score):
             pos = render_number(int(c), unit_x_offset, unit_y_offset)
             unit_x_offset = pos[0]
+
+    else:
+
+        render_grid()
+        render_map(game_map)
+        render_fruits()
+        render_snack()
 
     glFlush()
 
@@ -438,16 +438,16 @@ def special(key, x, y):
 def move_snack():
 
     global snack_pos
-    global is_game_over
+    global game_status
     global snack_refresh
     global score
 
-    if is_game_over:
+    if game_status == 'GAMEOVER':
         return
 
     if bricks_pos and snack_pos and snack_pos[0] in bricks_pos:
         snack_pos = []
-        is_game_over = True
+        game_status = 'GAMEOVER'
         glutChangeToMenuEntry(1, 'restart', 3);
 
     if fruits_pos and snack_pos and snack_pos[0] in fruits_pos:
@@ -473,7 +473,7 @@ def move_snack():
 
         if new_head_pos in snack_pos:
             snack_pos = []
-            is_game_over = True
+            game_status = 'GAMEOVER'
             glutChangeToMenuEntry(1, 'restart', 3);
         else:
             snack_pos.insert(0, new_head_pos)
@@ -488,13 +488,13 @@ def interval(value):
 def menu(idx):
 
     global snack_pos
-    global is_game_over
+    global game_status
 
     if idx == 2:
         sys.exit()
     elif idx == 3:
         snack_pos = [[10, 8]]
-        is_game_over = False
+        game_status = 'RESTART'
 
 if __name__ == '__main__':
 
