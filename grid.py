@@ -42,6 +42,7 @@ def init():
     glClearColor(0, 0, 0, 0)
 
 def display():
+
     glClear(GL_COLOR_BUFFER_BIT)
 
     glColor(0, 1, 0)

@@ -24,6 +24,7 @@ def render_box():
     glEnd()
 
 def display():
+
     glClear(GL_COLOR_BUFFER_BIT)
 
     glTranslate(1, 1, 0)
