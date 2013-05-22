@@ -79,6 +79,37 @@ def border(x=0, y=0, size=0, angle=0):
 
     glPopMatrix()
 
+def brick(x=0, y=0, size=0, angle=0):
+
+    glPushMatrix()
+
+    glMatrixMode(GL_PROJECTION)
+    glTranslate(x, y, 0)
+    glRotate(angle, 0, 0, 1)
+    glScale(size, size, 1)
+
+    origin_color = glGetFloatv(GL_CURRENT_COLOR)
+
+    glColor(rgbhex('#FF0000'))
+    glBegin(GL_QUADS)
+    glVertex2f(0, 0)
+    glVertex2f(0, 1)
+    glVertex2f(1, 1)
+    glVertex2f(1, 0)
+    glEnd()
+
+    glColor(rgbhex('#FFFFFF'))
+    glBegin(GL_LINE_LOOP)
+    glVertex2f(0, 0)
+    glVertex2f(0, 1)
+    glVertex2f(1, 1)
+    glVertex2f(1, 0)
+    glEnd()
+
+    glColor(*origin_color)
+
+    glPopMatrix()
+
 # --- main ---
 
 WIDTH = 500
@@ -99,10 +130,7 @@ def display():
     for y in range(0, HEIGHT, UNIT):
         line(y=y, size=WIDTH)
 
-    glColor(rgbhex('#FF0000'))
-    square(x=UNIT, y=UNIT, size=UNIT, angle=30)
-    glColor(rgbhex('#FFFFFF'))
-    border(x=UNIT, y=UNIT, size=UNIT, angle=30)
+    brick(x=UNIT, y=UNIT, size=UNIT, angle=30)
 
     glFlush()
 
