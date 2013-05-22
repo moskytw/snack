@@ -60,6 +60,7 @@ def brick(x=0, y=0, size=0, angle=0):
     glVertex2f(0, 0)
     glVertex2f(0, 1)
     glVertex2f(1, 1)
+    glColor(rgbhex('#8B0000'))
     glVertex2f(1, 0)
     glEnd()
 
@@ -85,20 +86,24 @@ def grass(x=0, y=0, size=0, angle=0):
     glRotate(angle, 0, 0, 1)
     glScale(size, size, 1)
 
-    glColor(rgbhex('#008000'))
-
     glBegin(GL_TRIANGLES)
 
+    glColor(rgbhex('#008000'))
     glVertex2f(0.0, 0.0)
     glVertex2f(0.0, 1.0)
+    glColor(rgbhex('#000000'))
     glVertex2f(1.0, 0.0)
 
+    glColor(rgbhex('#008000'))
     glVertex2f(0.5, 0.0)
     glVertex2f(1.0, 1.0)
+    glColor(rgbhex('#000000'))
     glVertex2f(1.5, 0.0)
 
+    glColor(rgbhex('#008000'))
     glVertex2f(1.0, 0.0)
     glVertex2f(2.0, 1.0)
+    glColor(rgbhex('#000000'))
     glVertex2f(2.0, 0.0)
 
     glEnd()
@@ -115,6 +120,7 @@ HEIGHT = UNIT*27
 
 def init():
     glClearColor(*rgbhex('#FFFFFF'))
+    glShadeModel(GL_SMOOTH)
 
 def render_grid():
 
