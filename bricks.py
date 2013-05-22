@@ -25,7 +25,8 @@ def rgbhex(rgbhex):
     if len(rgbhex) == 6:
         return (int(rgbhex[ :2], 16)/255.0,
                 int(rgbhex[2:4], 16)/255.0,
-                int(rgbhex[4: ], 16)/255.0)
+                int(rgbhex[4: ], 16)/255.0,
+                1)
 
 def line(x=0, y=0, size=0, angle=0):
 
