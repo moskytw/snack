@@ -269,7 +269,7 @@ def render_map(map_):
     bricks_pos = set()
     spaces_pos = []
     
-    unit_y = HEIGHT/UNIT
+    unit_y = UNIT_HEIGHT
 
     for blocks in map_:
 
@@ -364,7 +364,7 @@ def render_number(n):
 
     map_ = numbers_map[n]
 
-    unit_y = HEIGHT/UNIT
+    unit_y = UNIT_HEIGHT
 
     for blocks in map_:
 
