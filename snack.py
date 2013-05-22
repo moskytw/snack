@@ -396,7 +396,15 @@ def move_snack():
             new_head_pos[0] -= 1
         elif snack_face == 'RIGHT':
             new_head_pos[0] += 1
-        snack_pos.insert(0, tuple(new_head_pos))
+        new_head_pos = tuple(new_head_pos)
+
+        if new_head_pos in snack_pos:
+            snack_pos = []
+            is_game_over = True
+            glutChangeToMenuEntry(1, 'restart', 3);
+        else:
+            snack_pos.insert(0, new_head_pos)
+
 
     glutPostRedisplay()
 
