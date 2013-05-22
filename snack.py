@@ -111,6 +111,19 @@ def grass(x=0, y=0, size=0, angle=0):
     glPopMatrix()
     glColor(*origin_color)
 
+def disk_vertexes(delta):
+
+    from math import cos, sin, pi
+
+    angle = .0
+
+    while angle < 2*pi:
+        glVertex(
+            cos(angle),
+            sin(angle),
+        );
+        angle += delta
+
 def disk(x=0, y=0, size=0, angle=0):
 
     glPushMatrix()
@@ -120,20 +133,23 @@ def disk(x=0, y=0, size=0, angle=0):
     glRotate(angle, 0, 0, 1)
     glScale(size, size, 1)
 
-    from math import cos, sin, pi
-
-    angle = .0
-    delta = 1.0/size
-
     glBegin(GL_POLYGON)
+    disk_vertexes(1.0/size)
+    glEnd()
 
-    while angle < 2*pi:
-        glVertex(
-            cos(angle),
-            sin(angle),
-        );
-        angle += delta
+    glPopMatrix()
 
+def circle(x=0, y=0, size=0, angle=0):
+
+    glPushMatrix()
+
+    glMatrixMode(GL_PROJECTION)
+    glTranslate(x, y, 0)
+    glRotate(angle, 0, 0, 1)
+    glScale(size, size, 1)
+
+    glBegin(GL_LINE_LOOP)
+    disk_vertexes(1.0/size)
     glEnd()
 
     glPopMatrix()
@@ -182,12 +198,18 @@ def unit_disk(x=0, y=0, size=0, angle=0):
     # put center of this disk to the center of an unit
     disk(x+UNIT*0.5, y+UNIT*0.5, size*0.5, angle)
 
+def unit_circle(x=0, y=0, size=0, angle=0):
+    # put center of this disk to the center of an unit
+    circle(x+UNIT*0.5, y+UNIT*0.5, size*0.5, angle)
+
 def snack_body(x=0, y=0, size=0, angle=0):
 
     origin_color = glGetFloatv(GL_CURRENT_COLOR)
 
     glColor(rgbhex('#228B22'))
     unit_disk(x, y, size, angle)
+    glColor(rgbhex('#006400'))
+    unit_circle(x, y, size, angle)
 
     glColor(*origin_color)
 
@@ -234,8 +256,8 @@ def display():
     render_grid()
     load_game()
 
-    snack_body(x=UNIT*10, y=UNIT*8, size=UNIT*1.5)
     snack_body(x=UNIT*10, y=UNIT*7, size=UNIT*1.5)
+    snack_body(x=UNIT*10, y=UNIT*8, size=UNIT*1.5)
     snack_head(x=UNIT*10, y=UNIT*9, size=UNIT*1.5, face='RIGHT')
 
     glFlush()
