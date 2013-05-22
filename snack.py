@@ -425,7 +425,7 @@ def display():
             pos = render_number(int(c), unit_x_offset, unit_y_offset)
             unit_x_offset = pos[0]
 
-    glFlush()
+    glutSwapBuffers()
 
 def reshape(w, h):
     glMatrixMode(GL_PROJECTION)
@@ -522,7 +522,7 @@ def menu(idx):
 if __name__ == '__main__':
 
     glutInit(sys.argv)
-    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB)
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB)
     glutInitWindowSize(WIDTH, HEIGHT)
     glutInitWindowPosition(100, 100)
     glutCreateWindow('Snack')
