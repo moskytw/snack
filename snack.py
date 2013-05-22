@@ -186,6 +186,38 @@ def fruit(x=0, y=0, size=0, angle=0):
     glPopMatrix()
     glColor(*origin_color)
 
+def number(x=0, y=0, size=0, angle=0):
+
+    origin_color = glGetFloatv(GL_CURRENT_COLOR)
+    glPushMatrix()
+
+    glMatrixMode(GL_PROJECTION)
+    glTranslate(x, y, 0)
+    glRotate(angle, 0, 0, 1)
+    glScale(size, size, 1)
+
+    glColor(rgbhex('#008000'))
+
+    glBegin(GL_QUADS)
+    glVertex(0, 0)
+    glVertex(0, 1)
+    glVertex(1, 1)
+    glColor(rgbhex('#8B0000'))
+    glVertex(1, 0)
+    glEnd()
+
+    glColor(rgbhex('#800000'))
+
+    glBegin(GL_LINE_LOOP)
+    glVertex(0, 0)
+    glVertex(0, 1)
+    glVertex(1, 1)
+    glVertex(1, 0)
+    glEnd()
+
+    glPopMatrix()
+    glColor(*origin_color)
+
 # --- main ---
 
 UNIT   = 15
@@ -326,6 +358,30 @@ def render_fruits():
     for unit_x, unit_y in fruits_pos:
         fruit(x=UNIT*unit_x, y=UNIT*unit_y, size=UNIT)
 
+numbers_map = dict((str(i), list(open('numbers/%s.txt' % i))) for i in range(10))
+
+def render_score():
+
+    score_str = str(score)
+
+    for c in score_str:
+
+        for line in numbers_map[c]:
+
+            unit_y = UNIT_HEIGHT
+
+            for blocks in line:
+
+                unit_x = 0
+                unit_y -= 1
+
+                for block in blocks:
+
+                    if block == '+':
+                        number(x=unit_x, y=unit_y, size=UNIT)
+
+                    unit_x += 1
+
 def display():
 
     glClear(GL_COLOR_BUFFER_BIT)
@@ -338,6 +394,7 @@ def display():
     else:
         render_grid()
         render_map(game_over)
+        render_score()
 
     glFlush()
 
