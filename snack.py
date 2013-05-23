@@ -404,9 +404,6 @@ def display():
     global game_score
     global game_status
 
-    glClear(GL_COLOR_BUFFER_BIT)
-    render_grid()
-
     if game_status == 'INIT':
 
         snack_face    = 'TOP'
@@ -425,8 +422,12 @@ def display():
         game_status = 'GAMING'
 
         glutPostRedisplay()
+        return
 
-    elif game_status in ('GAMING', 'DYING', 'PAUSE'):
+    glClear(GL_COLOR_BUFFER_BIT)
+    render_grid()
+
+    if game_status in ('GAMING', 'DYING', 'PAUSE'):
 
         render_map(map_gaming)
         render_fruits()
