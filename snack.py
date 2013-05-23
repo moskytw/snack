@@ -222,8 +222,8 @@ def number(x=0, y=0, size=0, angle=0):
 
 # -- globals --
 
-UNIT   = 15
-UNIT_WIDTH = 48
+UNIT = 15
+UNIT_WIDTH  = 48
 UNIT_HEIGHT = 27
 WIDTH  = UNIT*UNIT_WIDTH
 HEIGHT = UNIT*UNIT_HEIGHT
@@ -235,9 +235,9 @@ snack_pos     = None # tuples in list
 game_score = None
 game_status = 'INIT'
 
-bricks_pos = set()
-spaces_pos = []
-fruits_pos = set()
+bricks_pos = None # set
+spaces_pos = None # list
+fruits_pos = None # set
 
 map_gaming   = list(open('maps/game.txt'))
 map_gameover = list(open('maps/gameover.txt'))
@@ -405,6 +405,7 @@ def display():
     global game_status
 
     glClear(GL_COLOR_BUFFER_BIT)
+    render_grid()
 
     if game_status == 'INIT':
 
@@ -415,22 +416,24 @@ def display():
         fruits_pos = set([(5, 5)])
 
         game_score = 0
-        game_status = 'GAMING'
+
+        # for loading the bricks_pos and spaces_pos
+        render_map(map_gaming)
 
         glutChangeToMenuEntry(1, 'continue', 1);
+
+        game_status = 'GAMING'
 
         glutPostRedisplay()
 
     elif game_status in ('GAMING', 'DYING', 'PAUSE'):
 
-        render_grid()
         render_map(map_gaming)
         render_fruits()
         render_snack()
 
     elif game_status == 'GAMEOVER':
 
-        render_grid()
         render_map(map_gameover)
 
         unit_x_offset = 28
@@ -438,8 +441,6 @@ def display():
         for c in str(game_score):
             pos = render_number(int(c), unit_x_offset, unit_y_offset)
             unit_x_offset = pos[0]
-
-        glutChangeToMenuEntry(1, 'restart', 3);
 
     glutSwapBuffers()
 
@@ -526,6 +527,8 @@ def move_snack():
 
         snack_pos.pop()
         if not snack_pos:
+            # change menu only one time
+            glutChangeToMenuEntry(1, 'restart', 3);
             game_status = 'GAMEOVER'
 
     glutPostRedisplay()
