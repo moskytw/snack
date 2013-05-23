@@ -456,9 +456,11 @@ def keyboard(key, x, y):
     global game_status
 
     if key == 'p':
-        game_status = 'PAUSE'
-    elif key == 'c':
-        game_status = 'GAMING'
+        if game_status == 'GAMING':
+            game_status = 'PAUSE'
+        elif game_status == 'PAUSE':
+            game_status = 'GAMING'
+            move_snack()
     elif key == 'r':
         game_status = 'INIT'
         glutPostRedisplay()
@@ -469,14 +471,16 @@ def special(key, x, y):
 
     global snack_face
 
-    if key == 101:
-        snack_face = 'TOP'
-    elif key == 103:
-        snack_face = 'BOTTOM'
-    elif key == 100:
-        snack_face = 'LEFT'
-    elif key == 102:
-        snack_face = 'RIGHT'
+    if game_status == 'GAMING':
+
+        if key == 101:
+            snack_face = 'TOP'
+        elif key == 103:
+            snack_face = 'BOTTOM'
+        elif key == 100:
+            snack_face = 'LEFT'
+        elif key == 102:
+            snack_face = 'RIGHT'
 
     move_snack()
 
