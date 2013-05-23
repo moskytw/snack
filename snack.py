@@ -322,15 +322,27 @@ def render_snack_head(x=0, y=0, size=0, angle=0, face='TOP'):
     if face == 'TOP':
         unit_disk(x-size*0.3, y+size*0.25, size*0.4, angle)
         unit_disk(x+size*0.3, y+size*0.25, size*0.4, angle)
+        glColor(rgbhex('#000000'))
+        unit_circle(x-size*0.3, y+size*0.25, size*0.4, angle)
+        unit_circle(x+size*0.3, y+size*0.25, size*0.4, angle)
     elif face == 'BOTTOM':
         unit_disk(x-size*0.3, y-size*0.25, size*0.4, angle)
         unit_disk(x+size*0.3, y-size*0.25, size*0.4, angle)
+        glColor(rgbhex('#000000'))
+        unit_circle(x-size*0.3, y-size*0.25, size*0.4, angle)
+        unit_circle(x+size*0.3, y-size*0.25, size*0.4, angle)
     elif face == 'RIGHT':
         unit_disk(x+size*0.3, y-size*0.25, size*0.4, angle)
         unit_disk(x+size*0.3, y+size*0.25, size*0.4, angle)
+        glColor(rgbhex('#000000'))
+        unit_circle(x+size*0.3, y-size*0.25, size*0.4, angle)
+        unit_circle(x+size*0.3, y+size*0.25, size*0.4, angle)
     elif face == 'LEFT':
         unit_disk(x-size*0.3, y+size*0.25, size*0.4, angle)
         unit_disk(x-size*0.3, y-size*0.25, size*0.4, angle)
+        glColor(rgbhex('#000000'))
+        unit_circle(x-size*0.3, y+size*0.25, size*0.4, angle)
+        unit_circle(x-size*0.3, y-size*0.25, size*0.4, angle)
 
     glColor(rgbhex('#000000'))
     if face == 'TOP':
