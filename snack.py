@@ -474,12 +474,8 @@ def move_snack():
     global game_score
     global game_status
 
-    if game_status in ('INIT', 'PAUSE', 'GAMEOVER'):
-        return
+    if game_status == 'GAMING':
 
-    new_head_pos = None
-
-    if snack_pos and game_status == 'GAMING':
         new_head_pos = list(snack_pos[0])
         if snack_face == 'TOP':
             new_head_pos[1] += 1
@@ -491,30 +487,34 @@ def move_snack():
             new_head_pos[0] += 1
         new_head_pos = tuple(new_head_pos)
 
-    if new_head_pos in fruits_pos:
+        ate_fruit = False
 
-        snack_refresh = int(snack_refresh*0.8)
-        game_score += 1
+        if new_head_pos in fruits_pos:
 
-        fruits_pos.remove(new_head_pos)
-        fruits_pos.add(choice(spaces_pos))
-        if randint(0, 1) == 1:
+            snack_refresh = int(snack_refresh*0.8)
+            game_score += 1
+
+            fruits_pos.remove(new_head_pos)
             fruits_pos.add(choice(spaces_pos))
+            if randint(0, 1) == 1:
+                fruits_pos.add(choice(spaces_pos))
 
-    elif new_head_pos in bricks_pos or new_head_pos in snack_pos:
+            ate_fruit = True
+
+        if new_head_pos in bricks_pos or new_head_pos in snack_pos:
+            game_status = 'DYING'
+
+        if not ate_fruit:
+            snack_pos.pop()
+
+        if game_status != 'DYING':
+            snack_pos.insert(0, new_head_pos)
+
+    elif game_status == 'DYING':
 
         snack_pos.pop()
-        game_status = 'DYING'
-
-    elif snack_pos:
-
-        snack_pos.pop()
-
-    if not snack_pos:
-        game_status = 'GAMEOVER'
-
-    if new_head_pos and game_status != 'DYING':
-        snack_pos.insert(0, new_head_pos)
+        if not snack_pos:
+            game_status = 'GAMEOVER'
 
     glutPostRedisplay()
 
