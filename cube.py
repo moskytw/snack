@@ -53,7 +53,7 @@ if __name__ == '__main__':
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)
     glutInitWindowSize(500, 500)
     glutInitWindowPosition(100, 100)
-    glutCreateWindow('Box')
+    glutCreateWindow('Cube')
     init()
     glutReshapeFunc(reshape)
     glutKeyboardFunc(keyboard)
