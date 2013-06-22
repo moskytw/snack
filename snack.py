@@ -247,7 +247,6 @@ map_numbers  = dict((i, list(open('numbers/%s.txt' % i))) for i in range(10))
 
 def init():
     glClearColor(*rgbhex('#FFFFFF'))
-    glShadeModel(GL_SMOOTH)
 
 def render_grid():
 
