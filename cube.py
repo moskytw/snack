@@ -22,7 +22,8 @@ def render_cube():
 
     global angle
 
-    glLoadIdentity()
+    glPushMatrix()
+
     glTranslate(0, 0, -7)
     glRotate(angle, 1, 1, 1)
 
@@ -65,6 +66,8 @@ def render_cube():
     glVertex3f( 1, -1, -1)
 
     glEnd()
+
+    glPopMatrix()
 
 def display():
 
