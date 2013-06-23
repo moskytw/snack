@@ -292,6 +292,7 @@ map_numbers  = dict((i, list(open('numbers/%s.txt' % i))) for i in range(10))
 def init():
     glClearColor(*rgbhex('#FFFFFF'))
     glEnable(GL_DEPTH_TEST)
+    glEnable(GL_TEXTURE_2D)
 
 def render_grid():
 
