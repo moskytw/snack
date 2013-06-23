@@ -12,15 +12,19 @@ except:
     print 'It needs PyOpenGL and OpenGL.'
     sys.exit()
 
+angle = 0
+
 def init():
     glClearColor(0, 0, 0, 0)
     glEnable(GL_DEPTH_TEST)
 
 def render_cube():
 
+    global angle
+
     glLoadIdentity()
-    glTranslatef(0, 0, -7)
-    glRotatef(30, 1, 1, 1)
+    glTranslate(0, 0, -7)
+    glRotate(angle, 1, 1, 1)
 
     glBegin(GL_QUADS)
 
@@ -70,12 +74,17 @@ def display():
 
     glutSwapBuffers()
 
+def idle():
+    global angle
+    angle += 2
+    glutPostRedisplay()
+
 def reshape(w, h):
 
     glViewport(0, 0, w, h)
     glMatrixMode(GL_PROJECTION)
     glLoadIdentity()
-    gluPerspective(45.0, w/h, 0.1, 100.0)
+    gluPerspective(45, 1, 0.1, 100)
     glMatrixMode(GL_MODELVIEW)
 
 def keyboard(key, x, y):
@@ -89,6 +98,7 @@ if __name__ == '__main__':
     glutInitWindowPosition(100, 100)
     glutCreateWindow('Cube')
     init()
+    glutIdleFunc(idle)
     glutReshapeFunc(reshape)
     glutKeyboardFunc(keyboard)
     glutDisplayFunc(display)
