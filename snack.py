@@ -34,7 +34,6 @@ def line(x=0, y=0, size=0, angle=0):
 
     glPushMatrix()
 
-    glMatrixMode(GL_PROJECTION)
     glTranslate(x, y, 0)
     glRotate(angle, 0, 0, 1)
     glScale(size, 1, 1)
@@ -51,7 +50,6 @@ def brick(x=0, y=0, size=0, angle=0):
     origin_color = glGetFloatv(GL_CURRENT_COLOR)
     glPushMatrix()
 
-    glMatrixMode(GL_PROJECTION)
     glTranslate(x, y, 0)
     glRotate(angle, 0, 0, 1)
     glScale(size, size, 1)
@@ -83,7 +81,6 @@ def grass(x=0, y=0, size=0, angle=0):
     origin_color = glGetFloatv(GL_CURRENT_COLOR)
     glPushMatrix()
 
-    glMatrixMode(GL_PROJECTION)
     glTranslate(x, y, 0)
     glRotate(angle, 0, 0, 1)
     glScale(size, size, 1)
@@ -128,7 +125,6 @@ def disk(x=0, y=0, size=0, angle=0):
 
     glPushMatrix()
 
-    glMatrixMode(GL_PROJECTION)
     glTranslate(x, y, 0)
     glRotate(angle, 0, 0, 1)
     glScale(size, size, 1)
@@ -143,7 +139,6 @@ def circle(x=0, y=0, size=0, angle=0):
 
     glPushMatrix()
 
-    glMatrixMode(GL_PROJECTION)
     glTranslate(x, y, 0)
     glRotate(angle, 0, 0, 1)
     glScale(size, size, 1)
@@ -159,7 +154,6 @@ def fruit(x=0, y=0, size=0, angle=0):
     origin_color = glGetFloatv(GL_CURRENT_COLOR)
     glPushMatrix()
 
-    glMatrixMode(GL_PROJECTION)
     glTranslate(x, y, 0)
     glRotate(angle, 0, 0, 1)
     glScale(size, size, 1)
@@ -191,7 +185,6 @@ def number(x=0, y=0, size=0, angle=0):
     origin_color = glGetFloatv(GL_CURRENT_COLOR)
     glPushMatrix()
 
-    glMatrixMode(GL_PROJECTION)
     glTranslate(x, y, 0)
     glRotate(angle, 0, 0, 1)
     glScale(size, size, 1)
@@ -400,7 +393,6 @@ def render_test():
     origin_color = glGetFloatv(GL_CURRENT_COLOR)
     glPushMatrix()
 
-    glMatrixMode(GL_PROJECTION)
     glTranslate(100, 100, 0)
     glRotate(0, 0, 0, 1)
     glScale(15, 15, 1)
@@ -484,6 +476,7 @@ def reshape(w, h):
     glLoadIdentity()
     glViewport(0, 0, w, h)
     gluOrtho2D(0.0, w, 0.0, h)
+    glMatrixMode(GL_MODELVIEW)
 
 def keyboard(key, x, y):
 
