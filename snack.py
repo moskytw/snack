@@ -8,6 +8,8 @@ from math import cos, sin, pi
 from random import choice, randint
 from time import sleep
 
+import Image
+
 try:
   from OpenGL.GL import *
   from OpenGL.GLU import *
@@ -262,6 +264,29 @@ def number(x=0, y=0, size=0, angle=0):
     glPopMatrix()
     glColor(*origin_color)
 
+
+def load_texture(name):
+
+    img = Image.open(name)
+    img_width, img_height = img.size
+    img_data = img.tostring("raw", "RGBX", 0, -1)
+
+    texture_id = glGenTextures(1)
+
+    glBindTexture(GL_TEXTURE_2D, texture_id)
+
+    glPixelStorei(GL_UNPACK_ALIGNMENT,1)
+    glTexImage2D(GL_TEXTURE_2D, 0, 3, img_width, img_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, img_data)
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP)
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP)
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT)
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT)
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
+    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL)
+
+    return texture_id
+
 # --- main ---
 
 # -- globals --
@@ -287,12 +312,16 @@ map_gaming   = list(open('maps/game.txt'))
 map_gameover = list(open('maps/gameover.txt'))
 map_numbers  = dict((i, list(open('numbers/%s.txt' % i))) for i in range(10))
 
+texture_floor = None
+
 # -- end --
 
 def init():
     glClearColor(*rgbhex('#FFFFFF'))
     glEnable(GL_DEPTH_TEST)
-    glEnable(GL_TEXTURE_2D)
+
+    global texture_floor
+    texture_floor = load_texture('textures/floor.png')
 
 def render_grid():
 
@@ -335,6 +364,33 @@ def render_map(map_):
                 spaces_pos.append((unit_x, unit_y))
 
             unit_x += 1
+
+    global texture_floor
+
+    glEnable(GL_TEXTURE_2D)
+    glPushMatrix()
+
+    glBindTexture(GL_TEXTURE_2D, texture_floor);
+    glTranslate(0, 0, -10)
+
+    glBegin(GL_QUADS)
+
+    glTexCoord(0, 0)
+    glVertex(0, 0)
+
+    glTexCoord(1, 0)
+    glVertex(WIDTH, 0)
+
+    glTexCoord(1, 1)
+    glVertex(WIDTH, HEIGHT)
+
+    glTexCoord(0, 1)
+    glVertex(0, HEIGHT)
+
+    glEnd()
+
+    glPopMatrix()
+    glDisable(GL_TEXTURE_2D)
 
 def unit_disk(x=0, y=0, size=0, angle=0):
     # put center of this disk to the center of an unit
