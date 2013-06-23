@@ -395,6 +395,39 @@ def render_number(n, unit_x_offset=0, unit_y_offset=0):
 
     return (unit_x, unit_y)
 
+def render_test():
+
+    origin_color = glGetFloatv(GL_CURRENT_COLOR)
+    glPushMatrix()
+
+    glMatrixMode(GL_PROJECTION)
+    glTranslate(100, 100, 0)
+    glRotate(0, 0, 0, 1)
+    glScale(15, 15, 1)
+
+    glColor(rgbhex('#B22222'))
+
+    glBegin(GL_QUADS)
+    glVertex(0, 0, -1)
+    glVertex(0, 1, -1)
+    glVertex(1, 1, -1)
+    glColor(rgbhex('#8B0000'))
+    glVertex(1, 0, -1)
+    glEnd()
+
+    glColor(rgbhex('#800000'))
+
+    glBegin(GL_LINE_LOOP)
+    glVertex(0, 0)
+    glVertex(0, 1)
+    glVertex(1, 1)
+    glVertex(1, 0)
+    glEnd()
+
+    glPopMatrix()
+    glColor(*origin_color)
+
+
 def display():
 
     global snack_face
