@@ -475,7 +475,7 @@ def reshape(w, h):
     glMatrixMode(GL_PROJECTION)
     glLoadIdentity()
     glViewport(0, 0, w, h)
-    gluOrtho2D(0.0, w, 0.0, h)
+    glOrtho(0, w, 0, h, 0, 100)
     glMatrixMode(GL_MODELVIEW)
 
 def keyboard(key, x, y):
