@@ -365,32 +365,32 @@ def render_map(map_):
 
             unit_x += 1
 
-    global texture_floor
+    #global texture_floor
 
-    glEnable(GL_TEXTURE_2D)
-    glPushMatrix()
+    #glEnable(GL_TEXTURE_2D)
+    #glPushMatrix()
 
-    glBindTexture(GL_TEXTURE_2D, texture_floor);
-    glTranslate(0, 0, -10)
+    #glBindTexture(GL_TEXTURE_2D, texture_floor);
+    #glTranslate(0, 0, -10)
 
-    glBegin(GL_QUADS)
+    #glBegin(GL_QUADS)
 
-    glTexCoord(0, 0)
-    glVertex(0, 0)
+    #glTexCoord(0, 0)
+    #glVertex(0, 0)
 
-    glTexCoord(1, 0)
-    glVertex(WIDTH, 0)
+    #glTexCoord(1, 0)
+    #glVertex(WIDTH, 0)
 
-    glTexCoord(1, 1)
-    glVertex(WIDTH, HEIGHT)
+    #glTexCoord(1, 1)
+    #glVertex(WIDTH, HEIGHT)
 
-    glTexCoord(0, 1)
-    glVertex(0, HEIGHT)
+    #glTexCoord(0, 1)
+    #glVertex(0, HEIGHT)
 
-    glEnd()
+    #glEnd()
 
-    glPopMatrix()
-    glDisable(GL_TEXTURE_2D)
+    #glPopMatrix()
+    #glDisable(GL_TEXTURE_2D)
 
 def unit_disk(x=0, y=0, size=0, angle=0):
     # put center of this disk to the center of an unit
