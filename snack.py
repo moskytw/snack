@@ -76,6 +76,57 @@ def brick(x=0, y=0, size=0, angle=0):
     glPopMatrix()
     glColor(*origin_color)
 
+def brick_3d(x=0, y=0, size=0, angle=0):
+
+    origin_color = glGetFloatv(GL_CURRENT_COLOR)
+    glPushMatrix()
+
+    glTranslate(x+size/2, y+size/2, 0)
+    glRotate(angle, 0, 0, 1)
+    glScale(size/2, size/2, size/2)
+
+    glBegin(GL_QUADS)
+
+    glColor3f(0, 1, 0)
+    glVertex3f( 1,  1, -1)
+    glVertex3f(-1,  1, -1)
+    glVertex3f(-1,  1,  1)
+    glVertex3f( 1,  1,  1)
+
+    glColor3f(1, 0.5,  0)
+    glVertex3f( 1, -1,  1)
+    glVertex3f(-1, -1,  1)
+    glVertex3f(-1, -1, -1)
+    glVertex3f( 1, -1, -1)
+
+    glColor3f(1, 0, 0)
+    glVertex3f( 1,  1,  1)
+    glVertex3f(-1,  1,  1)
+    glVertex3f(-1, -1,  1)
+    glVertex3f( 1, -1,  1)
+
+    glColor3f(1, 1, 0)
+    glVertex3f( 1, -1, -1)
+    glVertex3f(-1, -1, -1)
+    glVertex3f(-1,  1, -1)
+    glVertex3f( 1,  1, -1)
+
+    glColor3f(0, 0, 1)
+    glVertex3f(-1,  1,  1)
+    glVertex3f(-1,  1, -1)
+    glVertex3f(-1, -1, -1)
+    glVertex3f(-1, -1,  1)
+
+    glColor3f(1, 0, 1)
+    glVertex3f( 1,  1, -1)
+    glVertex3f( 1,  1,  1)
+    glVertex3f( 1, -1,  1)
+    glVertex3f( 1, -1, -1)
+
+    glEnd()
+
+    glPopMatrix()
+
 def grass(x=0, y=0, size=0, angle=0):
 
     origin_color = glGetFloatv(GL_CURRENT_COLOR)
@@ -274,7 +325,7 @@ def render_map(map_):
         for block in blocks:
 
             if block == '+':
-                brick(x=UNIT*unit_x, y=UNIT*unit_y, size=UNIT)
+                brick_3d(x=UNIT*unit_x, y=UNIT*unit_y, size=UNIT)
                 bricks_pos.add((unit_x, unit_y))
             elif block == 'G':
                 grass(x=UNIT*unit_x, y=UNIT*unit_y, size=UNIT)
