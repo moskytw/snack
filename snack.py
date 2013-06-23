@@ -56,6 +56,15 @@ def brick(x=0, y=0, size=0, angle=0):
     glRotate(angle, 0, 0, 1)
     glScale(size, size, 1)
 
+    glColor(rgbhex('#800000'))
+
+    glBegin(GL_LINE_LOOP)
+    glVertex(0, 0)
+    glVertex(0, 1)
+    glVertex(1, 1)
+    glVertex(1, 0)
+    glEnd()
+
     glColor(rgbhex('#B22222'))
 
     glBegin(GL_QUADS)
@@ -63,15 +72,6 @@ def brick(x=0, y=0, size=0, angle=0):
     glVertex(0, 1)
     glVertex(1, 1)
     glColor(rgbhex('#8B0000'))
-    glVertex(1, 0)
-    glEnd()
-
-    glColor(rgbhex('#800000'))
-
-    glBegin(GL_LINE_LOOP)
-    glVertex(0, 0)
-    glVertex(0, 1)
-    glVertex(1, 1)
     glVertex(1, 0)
     glEnd()
 
@@ -164,6 +164,15 @@ def fruit(x=0, y=0, size=0, angle=0):
     glRotate(angle, 0, 0, 1)
     glScale(size, size, 1)
 
+    glColor(rgbhex('#DAA520'))
+
+    glBegin(GL_LINE_LOOP)
+    glVertex(0, 0)
+    glVertex(0, 1)
+    glVertex(1, 1)
+    glVertex(1, 0)
+    glEnd()
+
     glColor(rgbhex('#FFFF00'))
 
     glBegin(GL_QUADS)
@@ -171,15 +180,6 @@ def fruit(x=0, y=0, size=0, angle=0):
     glVertex(0, 1)
     glVertex(1, 1)
     glColor(rgbhex('#FFD700'))
-    glVertex(1, 0)
-    glEnd()
-
-    glColor(rgbhex('#DAA520'))
-
-    glBegin(GL_LINE_LOOP)
-    glVertex(0, 0)
-    glVertex(0, 1)
-    glVertex(1, 1)
     glVertex(1, 0)
     glEnd()
 
@@ -303,46 +303,18 @@ def render_snack_body(x=0, y=0, size=0, angle=0):
 
     origin_color = glGetFloatv(GL_CURRENT_COLOR)
 
-    glColor(rgbhex('#228B22'))
-    unit_disk(x, y, size, angle)
     glColor(rgbhex('#006400'))
     unit_circle(x, y, size, angle)
+    glColor(rgbhex('#228B22'))
+    unit_disk(x, y, size, angle)
 
     glColor(*origin_color)
 
 def render_snack_head(x=0, y=0, size=0, angle=0, face='TOP'):
 
-    render_snack_body(x, y, size, angle)
-
     origin_color = glGetFloatv(GL_CURRENT_COLOR)
 
     # TODO: refacor it
-
-    glColor(rgbhex('#FFFFFF'))
-    if face == 'TOP':
-        unit_disk(x-size*0.3, y+size*0.25, size*0.4, angle)
-        unit_disk(x+size*0.3, y+size*0.25, size*0.4, angle)
-        glColor(rgbhex('#000000'))
-        unit_circle(x-size*0.3, y+size*0.25, size*0.4, angle)
-        unit_circle(x+size*0.3, y+size*0.25, size*0.4, angle)
-    elif face == 'BOTTOM':
-        unit_disk(x-size*0.3, y-size*0.25, size*0.4, angle)
-        unit_disk(x+size*0.3, y-size*0.25, size*0.4, angle)
-        glColor(rgbhex('#000000'))
-        unit_circle(x-size*0.3, y-size*0.25, size*0.4, angle)
-        unit_circle(x+size*0.3, y-size*0.25, size*0.4, angle)
-    elif face == 'RIGHT':
-        unit_disk(x+size*0.3, y-size*0.25, size*0.4, angle)
-        unit_disk(x+size*0.3, y+size*0.25, size*0.4, angle)
-        glColor(rgbhex('#000000'))
-        unit_circle(x+size*0.3, y-size*0.25, size*0.4, angle)
-        unit_circle(x+size*0.3, y+size*0.25, size*0.4, angle)
-    elif face == 'LEFT':
-        unit_disk(x-size*0.3, y+size*0.25, size*0.4, angle)
-        unit_disk(x-size*0.3, y-size*0.25, size*0.4, angle)
-        glColor(rgbhex('#000000'))
-        unit_circle(x-size*0.3, y+size*0.25, size*0.4, angle)
-        unit_circle(x-size*0.3, y-size*0.25, size*0.4, angle)
 
     glColor(rgbhex('#000000'))
     if face == 'TOP':
@@ -357,6 +329,34 @@ def render_snack_head(x=0, y=0, size=0, angle=0, face='TOP'):
     elif face == 'LEFT':
         unit_disk(x-size*0.3, y+size*0.25, size*0.2, angle)
         unit_disk(x-size*0.3, y-size*0.25, size*0.2, angle)
+
+        glColor(rgbhex('#000000'))
+    if face == 'TOP':
+        unit_circle(x-size*0.3, y+size*0.25, size*0.4, angle)
+        unit_circle(x+size*0.3, y+size*0.25, size*0.4, angle)
+        glColor(rgbhex('#FFFFFF'))
+        unit_disk(x-size*0.3, y+size*0.25, size*0.4, angle)
+        unit_disk(x+size*0.3, y+size*0.25, size*0.4, angle)
+    elif face == 'BOTTOM':
+        unit_circle(x-size*0.3, y-size*0.25, size*0.4, angle)
+        unit_circle(x+size*0.3, y-size*0.25, size*0.4, angle)
+        glColor(rgbhex('#FFFFFF'))
+        unit_disk(x-size*0.3, y-size*0.25, size*0.4, angle)
+        unit_disk(x+size*0.3, y-size*0.25, size*0.4, angle)
+    elif face == 'RIGHT':
+        unit_circle(x+size*0.3, y-size*0.25, size*0.4, angle)
+        unit_circle(x+size*0.3, y+size*0.25, size*0.4, angle)
+        glColor(rgbhex('#FFFFFF'))
+        unit_disk(x+size*0.3, y-size*0.25, size*0.4, angle)
+        unit_disk(x+size*0.3, y+size*0.25, size*0.4, angle)
+    elif face == 'LEFT':
+        unit_circle(x-size*0.3, y+size*0.25, size*0.4, angle)
+        unit_circle(x-size*0.3, y-size*0.25, size*0.4, angle)
+        glColor(rgbhex('#FFFFFF'))
+        unit_disk(x-size*0.3, y+size*0.25, size*0.4, angle)
+        unit_disk(x-size*0.3, y-size*0.25, size*0.4, angle)
+
+    render_snack_body(x, y, size, angle)
 
     glColor(*origin_color)
 
@@ -458,23 +458,24 @@ def display():
         return
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-    render_grid()
 
     if game_status in ('GAMING', 'DYING', 'PAUSE'):
 
-        render_map(map_gaming)
         render_fruits()
         render_snack()
+        render_map(map_gaming)
 
     elif game_status == 'GAMEOVER':
-
-        render_map(map_gameover)
 
         unit_x_offset = 28
         unit_y_offset = 19
         for c in str(game_score):
             pos = render_number(int(c), unit_x_offset, unit_y_offset)
             unit_x_offset = pos[0]
+
+        render_map(map_gameover)
+
+    render_grid()
 
     glutSwapBuffers()
 
