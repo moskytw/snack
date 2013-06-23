@@ -247,6 +247,7 @@ map_numbers  = dict((i, list(open('numbers/%s.txt' % i))) for i in range(10))
 
 def init():
     glClearColor(*rgbhex('#FFFFFF'))
+    glEnable(GL_DEPTH_TEST)
 
 def render_grid():
 
@@ -423,7 +424,7 @@ def display():
         glutPostRedisplay()
         return
 
-    glClear(GL_COLOR_BUFFER_BIT)
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     render_grid()
 
     if game_status in ('GAMING', 'DYING', 'PAUSE'):
@@ -559,7 +560,7 @@ def menu(idx):
 if __name__ == '__main__':
 
     glutInit(sys.argv)
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB)
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)
     glutInitWindowSize(WIDTH, HEIGHT)
     glutInitWindowPosition(100, 100)
     glutCreateWindow('Snack')
