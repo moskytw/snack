@@ -14,34 +14,68 @@ except:
 
 def init():
     glClearColor(0, 0, 0, 0)
+    glEnable(GL_DEPTH_TEST)
 
-def render_box():
+def render_cube():
+
+    glLoadIdentity()
+    glTranslatef(0, 0, -7)
+    glRotatef(30, 1, 1, 1)
+
     glBegin(GL_QUADS)
-    glVertex(0, 0) # bottom left
-    glVertex(1, 0) # bottom right
-    glVertex(1, 1) # top right
-    glVertex(0, 1) # top left
+
+    glColor3f(0,1,0)
+    glVertex3f( 1, 1,-1)
+    glVertex3f(-1, 1,-1)
+    glVertex3f(-1, 1, 1)
+    glVertex3f( 1, 1, 1)
+
+    glColor3f(1,0.5,0)
+    glVertex3f( 1,-1, 1)
+    glVertex3f(-1,-1, 1)
+    glVertex3f(-1,-1,-1)
+    glVertex3f( 1,-1,-1)
+
+    glColor3f(1,0,0)
+    glVertex3f( 1, 1, 1)
+    glVertex3f(-1, 1, 1)
+    glVertex3f(-1,-1, 1)
+    glVertex3f( 1,-1, 1)
+
+    glColor3f(1,1,0)
+    glVertex3f( 1,-1,-1)
+    glVertex3f(-1,-1,-1)
+    glVertex3f(-1, 1,-1)
+    glVertex3f( 1, 1,-1)
+
+    glColor3f(0,0,1)
+    glVertex3f(-1, 1, 1)
+    glVertex3f(-1, 1,-1)
+    glVertex3f(-1,-1,-1)
+    glVertex3f(-1,-1, 1)
+
+    glColor3f(1,0,1)
+    glVertex3f( 1, 1,-1)
+    glVertex3f( 1, 1, 1)
+    glVertex3f( 1,-1, 1)
+    glVertex3f( 1,-1,-1)
+
     glEnd()
 
 def display():
 
-    glClear(GL_COLOR_BUFFER_BIT)
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
-    glTranslate(1, 1, 0)
-    glScale(1, 2, 1)
-    glColor(0, 1, 0)
-    render_box()
+    render_cube()
 
     glutSwapBuffers()
 
 def reshape(w, h):
+
     glViewport(0, 0, w, h)
     glMatrixMode(GL_PROJECTION)
     glLoadIdentity()
-    if(w <= h):
-        gluOrtho2D(0.0, 10.0, 0.0, 10.0 * h/w)
-    else:
-        gluOrtho2D(0.0, 10.0 * w/h, 0.0, 10.0)
+    gluPerspective(45.0, w/h, 0.1, 100.0)
     glMatrixMode(GL_MODELVIEW)
 
 def keyboard(key, x, y):
