@@ -128,6 +128,7 @@ def brick_3d(x=0, y=0, size=0, angle=0):
     glEnd()
 
     glPopMatrix()
+    glColor(*origin_color)
 
 def grass(x=0, y=0, size=0, angle=0):
 
@@ -313,6 +314,7 @@ map_gameover = list(open('maps/gameover.txt'))
 map_numbers  = dict((i, list(open('numbers/%s.txt' % i))) for i in range(10))
 
 texture_floor = None
+texture_brick = None
 
 # -- end --
 
@@ -320,8 +322,9 @@ def init():
     glClearColor(*rgbhex('#FFFFFF'))
     glEnable(GL_DEPTH_TEST)
 
-    global texture_floor
+    global texture_floor, texture_brick
     texture_floor = load_texture('textures/floor.png')
+    texture_brick = load_texture('textures/brick.png')
 
 def render_grid():
 
@@ -335,6 +338,81 @@ def render_grid():
     for y in range(0, HEIGHT, UNIT):
         line(y=y, size=WIDTH)
 
+    glColor(*origin_color)
+
+def brick_3d_texture(x=0, y=0, size=0, angle=0):
+
+    global texture_brick
+
+    origin_color = glGetFloatv(GL_CURRENT_COLOR)
+
+    glEnable(GL_TEXTURE_2D)
+    glPushMatrix()
+
+    glBindTexture(GL_TEXTURE_2D, texture_brick)
+    glTranslate(x+size/2, y+size/2, 0)
+    glRotate(angle, 0, 0, 1)
+    glScale(size/2, size/2, size/2)
+
+    glBegin(GL_QUADS)
+
+    glTexCoord(0, 0)
+    glVertex3f( 1,  1, -1)
+    glTexCoord(0, 1)
+    glVertex3f(-1,  1, -1)
+    glTexCoord(1, 1)
+    glVertex3f(-1,  1,  1)
+    glTexCoord(1, 0)
+    glVertex3f( 1,  1,  1)
+
+    glTexCoord(0, 0)
+    glVertex3f( 1, -1,  1)
+    glTexCoord(0, 1)
+    glVertex3f(-1, -1,  1)
+    glTexCoord(1, 1)
+    glVertex3f(-1, -1, -1)
+    glTexCoord(1, 0)
+    glVertex3f( 1, -1, -1)
+
+    glTexCoord(0, 0)
+    glVertex3f( 1,  1,  1)
+    glTexCoord(0, 1)
+    glVertex3f(-1,  1,  1)
+    glTexCoord(1, 1)
+    glVertex3f(-1, -1,  1)
+    glTexCoord(1, 0)
+    glVertex3f( 1, -1,  1)
+
+    glTexCoord(0, 0)
+    glVertex3f( 1, -1, -1)
+    glTexCoord(0, 1)
+    glVertex3f(-1, -1, -1)
+    glTexCoord(1, 1)
+    glVertex3f(-1,  1, -1)
+    glTexCoord(1, 0)
+    glVertex3f( 1,  1, -1)
+
+    glTexCoord(0, 0)
+    glVertex3f(-1,  1,  1)
+    glTexCoord(0, 1)
+    glVertex3f(-1,  1, -1)
+    glTexCoord(1, 1)
+    glVertex3f(-1, -1, -1)
+    glTexCoord(1, 0)
+    glVertex3f(-1, -1,  1)
+
+    glTexCoord(0, 0)
+    glVertex3f( 1,  1, -1)
+    glTexCoord(0, 1)
+    glVertex3f( 1,  1,  1)
+    glTexCoord(1, 1)
+    glVertex3f( 1, -1,  1)
+    glVertex3f( 1, -1, -1)
+
+    glEnd()
+
+    glPopMatrix()
+    glDisable(GL_TEXTURE_2D)
     glColor(*origin_color)
 
 def render_map(map_):
@@ -355,7 +433,7 @@ def render_map(map_):
         for block in blocks:
 
             if block == '+':
-                brick_3d(x=UNIT*unit_x, y=UNIT*unit_y, size=UNIT)
+                brick_3d_texture(x=UNIT*unit_x, y=UNIT*unit_y, size=UNIT)
                 bricks_pos.add((unit_x, unit_y))
             elif block == 'G':
                 grass(x=UNIT*unit_x, y=UNIT*unit_y, size=UNIT)
@@ -365,32 +443,32 @@ def render_map(map_):
 
             unit_x += 1
 
-    #global texture_floor
+    global texture_floor
 
-    #glEnable(GL_TEXTURE_2D)
-    #glPushMatrix()
+    glEnable(GL_TEXTURE_2D)
+    glPushMatrix()
 
-    #glBindTexture(GL_TEXTURE_2D, texture_floor);
-    #glTranslate(0, 0, -10)
+    glBindTexture(GL_TEXTURE_2D, texture_floor)
+    glTranslate(0, 0, -10)
 
-    #glBegin(GL_QUADS)
+    glBegin(GL_QUADS)
 
-    #glTexCoord(0, 0)
-    #glVertex(0, 0)
+    glTexCoord(0, 0)
+    glVertex(0, 0)
 
-    #glTexCoord(1, 0)
-    #glVertex(WIDTH, 0)
+    glTexCoord(1, 0)
+    glVertex(WIDTH, 0)
 
-    #glTexCoord(1, 1)
-    #glVertex(WIDTH, HEIGHT)
+    glTexCoord(1, 1)
+    glVertex(WIDTH, HEIGHT)
 
-    #glTexCoord(0, 1)
-    #glVertex(0, HEIGHT)
+    glTexCoord(0, 1)
+    glVertex(0, HEIGHT)
 
-    #glEnd()
+    glEnd()
 
-    #glPopMatrix()
-    #glDisable(GL_TEXTURE_2D)
+    glPopMatrix()
+    glDisable(GL_TEXTURE_2D)
 
 def unit_disk(x=0, y=0, size=0, angle=0):
     # put center of this disk to the center of an unit
@@ -575,7 +653,7 @@ def display():
 
         render_map(map_gameover)
 
-    render_grid()
+    #render_grid()
 
     glutSwapBuffers()
 
